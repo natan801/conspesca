@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/resources/template/template_principal.xhtml">
+
+	<ui:define name="title">Cadastro de Usuario</ui:define>
+
+	<ui:define name="conteudo">
+		<h:body>
+			<h:form id="formulario">
+				<p:messages id="messages" autoUpdate="true" />
+
+				<h:panelGrid id="cadastrar" columns="2" width="100%"
+					style="width: 50% !important;">
+					<p:outputLabel value="Nome: " />
+					<p:inputText id="nome" name="nome" size="60"
+						value="#{usuarioMB.usuario.nome}" required="true"
+						requiredMessage="Campo nome obrigatório!" />
+
+					<p:outputLabel value="E-mail: " />
+					<p:inputText id="email" value="#{usuarioMB.usuario.email}">
+					</p:inputText>
+
+					<p:outputLabel value=" Login: " />
+					<p:inputText id="login" value="#{usuarioMB.usuario.login}" />
+
+
+					<p:outputLabel value=" Senha: " />
+					<p:password id="senha" value="#{usuarioMB.usuario.senha}" />
+
+					<p:outputLabel for="dataNascimento" value="Data Nascimento:" />
+					<p:calendar id="dataNascimento" value="#{usuarioMB.usuario.dataNascimento}"	
+							pattern="dd-MM-yyyy" mask="true" locale="pt_BR" showButtonPanel="true"/>
+					
+					
+					<p:commandButton action="#{usuarioMB.salvar}" value="Salvar"
+						ajax="false" />
+				</h:panelGrid>
+				<br />
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

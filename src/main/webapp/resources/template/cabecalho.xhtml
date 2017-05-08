@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<p:menubar>
+		<p:submenu label="Usuário">
+			<p:menuitem value="Cadastrar" url="/pages/cadastrousuario.xhtml" />
+			<p:separator />
+			<p:menuitem value="Consultar" url="/pages/consultausuario.xhtml" />
+		</p:submenu>
+		<p:submenu label="Peixe">
+			<p:menuitem value="Cadastrar" url="/pages/cadastropeixe.xhtml" />
+			<p:separator />
+			<p:menuitem value="Consultar" url="/pages/consultapeixe.xhtml" />
+		</p:submenu>
+		<p:submenu label="Ferramenta">
+			<p:menuitem value="Cadastrar" url="/pages/cadastroferramenta.xhtml" />
+			<p:separator />
+			<p:menuitem value="Consultar" url="/pages/consultaferramenta.xhtml" />
+		</p:submenu>
+
+		<p:submenu label="Pesca">
+			<p:menuitem value="Cadastrar" url="/pages/cadastroPesca.xhtml" />
+			<p:separator />
+			<!-- 					<p:menuitem value="Consultar" url="/pages/consultaLivro.jsf" /> -->
+		</p:submenu>
+
+	</p:menubar>
+</ui:composition>

@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/resources/template/template_principal.xhtml">
+
+	<ui:define name="title">Consultar Peixe</ui:define>
+
+	<ui:define name="conteudo">
+		<h:body>
+			<h:form>
+				<p:dataTable var="peixe" value="#{peixeMB.peixes}"
+					styleClass="order-table" headerClass="order-table-header"
+					rowClasses="order-table-odd-row,order-table-even-row" >
+
+					<p:column headerText="Nome">
+						<h:outputText value="#{peixe.nome}" />
+					</p:column>
+
+					<p:column headerText="Espécie">
+						<h:outputText value="#{peixe.especie}" />
+					</p:column>
+
+					<p:column headerText="Tamanho">
+						<h:outputText value="#{peixe.tamanhoMax}" />
+					</p:column>
+					
+					
+					<p:column headerText="Peso">
+						<h:outputText value="#{peixe.pesoMax}" />
+					</p:column>
+					
+					
+					<p:column headerText="Inicio Pesca">
+						<h:outputText value="#{peixe.inicioPesca}" />
+					</p:column>
+					
+					
+					<p:column headerText="Fim Pesca">
+						<h:outputText value="#{peixe.fimPesca}" />
+					</p:column>
+					
+				</p:dataTable>
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

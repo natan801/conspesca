@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/resources/template/template_principal.xhtml">
+
+	<ui:define name="title">Cadastro de Pesca</ui:define>
+
+	<ui:define name="conteudo">
+		<h:body>
+			<h:form id="form">
+				<p:messages id="mensagem" autoUpdate="true" />
+
+				<h:panelGrid header="Pesca" columns="1">
+					<h:panelGrid columns="2">
+						<h:outputLabel value="Usuario: " />
+<!-- 						<p:inputText id="usuario" name="usuario" size="60" value="#{pescaMB.pesca.usuario.nome}" required="true" /> -->
+
+						<h:outputLabel value="Ferramenta: " />
+						<p:selectOneMenu effect="fade" value="#{pescaMB.ferramenta}" id="selectFerramenta" converter="ferramentaConverter"	required="true">
+							<f:selectItems value="#{pescaMB.listaFerramentas}" var="f" itemLabel="#{f.nome}" itemValue="#{f}" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+
+					<p:fieldset legend="Pescaria" style="margin-bottom:20px">
+						<p:growl id="msgs" />
+						<h:panelGrid columns="10">
+
+							<h:outputLabel value="Peixe: " />
+							<p:selectOneMenu effect="fade" value="#{pescaMB.peixe}"	id="selectPeixe" converter="peixeConverter" required="true">
+								<f:selectItems value="#{pescaMB.peixes}" var="p" itemLabel="#{p.nome}" itemValue="#{p}" />
+							</p:selectOneMenu>
+
+							<h:outputLabel value="Quantidade: " />
+							<p:inputText id="quantidade" name="quantidade" size="4"	maxlength="5" value="#{pescaMB.pescaria.quantidade}" />
+						
+						
+							<p:panel id="coordenadas">
+								<h:outputLabel value="Coordenadas: " />
+								<p:inputText id="latitude" name="latitude" size="20" value="#{pescaMB.latMap}" required="true" disabled="true"/>
+								<p:inputText id="longitude" name="longitude" size="20" value="#{pescaMB.longMap}" required="true" disabled="true"/>
+								<p:commandButton id="btn" type="button" icon="ui-icon-pin-s" value="Mostrar Mapa" onclick="PF('dlg').show();" />
+							</p:panel>
+						
+							<p:dialog id="mapDialog" widgetVar="dlg" width="800" height="500" modal="true" resizable="false">
+								<p:gmap id="gmap" center="-27.658354, -48.599955" zoom="11" type="HYBRID" style="width:100%;height:400px" disableDoubleClickZoom="true"
+								streetView="false"  disableDefaultUI="true">
+									 <p:ajax event="pointSelect" listener="#{pescaMB.selecionaCoordenada}" update="coordenadas" />
+    							</p:gmap>
+								
+								<p:commandButton value="Adicionar" actionListener="#{pescaMB.selecionaCoordenada}"  oncomplete="PF('mapDialog').hide();" update="coordenadas"/>
+							</p:dialog>
+							
+						</h:panelGrid>
+						<br/>
+						<p:commandButton id="btn_addPescaria" value="Adicionar" update="tabelaPescarias msgs @parent" action="#{pescaMB.reNovo}" >
+                			<p:collector value="#{pescaMB.pescaria}" addTo="#{pescaMB.pescariasAdicionadas}" unique="true"/>
+            			</p:commandButton>
+					</p:fieldset>
+
+					
+					<p:dataTable value="#{pescaMB.pescariasAdicionadas}" var="pescaria"	styleClass="order-table" headerClass="order-table-header"
+						rowClasses="order-table-odd-row,order-table-even-row" id="tabelaPescarias">
+						<p:column>#{pescaMB.pescaria.peixe.nome}</p:column>
+						<p:column>#{pescaMB.pescaria.quantidade}</p:column>
+						<p:column>#{pescaMB.pescaria.latitude}</p:column>
+						<p:column>#{pescaMB.pescaria.longitude}</p:column>
+					</p:dataTable>
+
+					<p:commandButton value="Salvar Pesca" action="#{pescaMB.salvarPesca}" />
+
+
+				</h:panelGrid>
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

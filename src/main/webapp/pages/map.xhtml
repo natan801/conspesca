@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/resources/template/template_principal.xhtml">
+
+
+	<ui:define name="title">Cadastro de Pesca</ui:define>
+
+
+	<ui:define name="conteudo">
+
+		<h:body>
+			<h:form id="mainForm">
+				<p:datatable id="datatable">
+				</p:datatable>
+			</h:form>
+			
+			<p:dialog widgetVar="dlg" modal="true" appendTo="@(body)">
+				<h:form id="subForm">
+					<p:commandButton id="updator"
+						actionListener="#{javaBean.updateGrid()}"
+						update="mainForm:datatable" oncomplete="dlg.hide()"
+						update="#{p:component('datatable')}" />
+				</h:form>
+			</p:dialog>
+		</h:body>
+	</ui:define>
+
+
+</ui:composition>
