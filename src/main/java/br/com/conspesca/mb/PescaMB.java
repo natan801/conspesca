@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.event.map.PointSelectEvent;
@@ -57,17 +58,16 @@ public class PescaMB {
 		this.longMap = longMap;
 	}
 
-	public PescaMB() {
+	@Inject
+	public void init() {
 		this.pesca = new Pesca();
 		this.pescaria = new Pescaria();
 		this.pescas = new ArrayList<>();
 		this.pescaService = new PescaService();
+		this.listaFerramentas = this.ferramentaService.findAllFerramenta();
 	}
 	
 	
-	public void init(){
-		
-	}
 
 	public Pesca getPesca() {
 		return this.pesca;
@@ -102,8 +102,7 @@ public class PescaMB {
 	}
 
 	public List<Ferramenta> getListaFerramentas() {
-		this.ferramentaService = new FerramentaService();
-		this.listaFerramentas = this.ferramentaService.findAllFerramenta();
+		
 		return this.listaFerramentas;
 	}
 
