@@ -1,11 +1,12 @@
 package br.com.conspesca.mb;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.faces.view.ViewScoped;
 
 import org.primefaces.event.map.PointSelectEvent;
 import org.primefaces.model.map.LatLng;
@@ -19,25 +20,27 @@ import br.com.conspesca.service.PeixeService;
 import br.com.conspesca.service.PescaService;
 
 @Named("pescaMB")
-@RequestScoped
-public class PescaMB {
+@ViewScoped
+public class PescaMB implements Serializable{
 
+	
+	private static final long serialVersionUID = 1L;
+	
 	private Pesca pesca;
 	private List<Pesca> pescas;
 
 	private PescaService pescaService;
 
 	private Ferramenta ferramenta;
-	private List<Ferramenta> listaFerramentas;
-	private FerramentaService ferramentaService;
+	private List<Ferramenta> listaFerramentas = new ArrayList<Ferramenta>();
+	private FerramentaService ferramentaService = new FerramentaService();
 
-	private Peixe peixe;
 	private List<Peixe> peixes;
 	private PeixeService peixeService;
 
 	private Pescaria pescaria;
 	private List<Pescaria> pescarias;
-	private List<Pescaria> pescariasAdicionadas;
+	private List<Pescaria> pescariasAdicionadas = new ArrayList<Pescaria>();
 
 	private String latMap;
 	private String longMap;
@@ -58,8 +61,8 @@ public class PescaMB {
 		this.longMap = longMap;
 	}
 
-	@Inject
-	public void init() {
+	
+	public PescaMB() {
 		this.pesca = new Pesca();
 		this.pescaria = new Pescaria();
 		this.pescas = new ArrayList<>();
@@ -118,20 +121,12 @@ public class PescaMB {
 		this.pescarias = pescarias;
 	}
 
-	public void setPeixe(Peixe peixe) {
-		this.peixe = peixe;
-	}
-
 	public Pescaria getPescaria() {
 		return this.pescaria;
 	}
 
 	public void setPescaria(Pescaria pescaria) {
 		this.pescaria = pescaria;
-	}
-
-	public Peixe getPeixe() {
-		return this.peixe;
 	}
 
 	public List<Peixe> getPeixes() {
@@ -172,13 +167,13 @@ public class PescaMB {
 	public void selecionaCoordenada(PointSelectEvent event) {
 		LatLng latLng = event.getLatLng();
 
-		this.setLatMap(String.valueOf(latLng.getLat()));
-		this.setLongMap(String.valueOf(latLng.getLng()));
+		this.pescaria.setLatitude( latLng.getLat());
+		this.pescaria.setLongitude(latLng.getLng());
 	}
 
-	public String reNovo() {
-		this.pescaria = new Pescaria();
-		return null;
+	public void adicionaPescaria() {
+		this.pescariasAdicionadas.add(this.pescaria);
+		this.pescaria =  new Pescaria();
 	}
 
 }

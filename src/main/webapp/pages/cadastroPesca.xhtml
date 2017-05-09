@@ -28,7 +28,7 @@
 						<h:panelGrid columns="10">
 
 							<h:outputLabel value="Peixe: " />
-							<p:selectOneMenu effect="fade" value="#{pescaMB.peixe}"	id="selectPeixe" converter="peixeConverter" required="true">
+							<p:selectOneMenu effect="fade" value="#{pescaMB.pescaria.peixe}"	id="selectPeixe" converter="peixeConverter" required="true">
 								<f:selectItems value="#{pescaMB.peixes}" var="p" itemLabel="#{p.nome}" itemValue="#{p}" />
 							</p:selectOneMenu>
 
@@ -38,8 +38,8 @@
 						
 							<p:panel id="coordenadas">
 								<h:outputLabel value="Coordenadas: " />
-								<p:inputText id="latitude" name="latitude" size="20" value="#{pescaMB.latMap}" required="true" disabled="true"/>
-								<p:inputText id="longitude" name="longitude" size="20" value="#{pescaMB.longMap}" required="true" disabled="true"/>
+								<p:inputText id="latitude" name="latitude" size="20" value="#{pescaMB.pescaria.latitude}" required="true" disabled="true"/>
+								<p:inputText id="longitude" name="longitude" size="20" value="#{pescaMB.pescaria.longitude}" required="true" disabled="true"/>
 								<p:commandButton id="btn" type="button" icon="ui-icon-pin-s" value="Mostrar Mapa" onclick="PF('dlg').show();" />
 							</p:panel>
 						
@@ -49,23 +49,52 @@
 									 <p:ajax event="pointSelect" listener="#{pescaMB.selecionaCoordenada}" update="coordenadas" />
     							</p:gmap>
 								
-								<p:commandButton value="Adicionar" actionListener="#{pescaMB.selecionaCoordenada}"  oncomplete="PF('mapDialog').hide();" update="coordenadas"/>
+								<p:commandButton value="Adicionar" actionListener="#{pescaMB.selecionaCoordenada}"  oncomplete="PF('dlg').hide();" update="coordenadas"/>
 							</p:dialog>
 							
 						</h:panelGrid>
 						<br/>
-						<p:commandButton id="btn_addPescaria" value="Adicionar" update="tabelaPescarias msgs @parent" action="#{pescaMB.reNovo}" >
-                			<p:collector value="#{pescaMB.pescaria}" addTo="#{pescaMB.pescariasAdicionadas}" unique="true"/>
-            			</p:commandButton>
-					</p:fieldset>
+					
+						<p:commandButton value="Adicionar"	action="#{pescaMB.adicionaPescaria}" update=":form:tabelaPescarias" />
+						
+						</p:fieldset>
 
 					
 					<p:dataTable value="#{pescaMB.pescariasAdicionadas}" var="pescaria"	styleClass="order-table" headerClass="order-table-header"
-						rowClasses="order-table-odd-row,order-table-even-row" id="tabelaPescarias">
-						<p:column>#{pescaMB.pescaria.peixe.nome}</p:column>
-						<p:column>#{pescaMB.pescaria.quantidade}</p:column>
-						<p:column>#{pescaMB.pescaria.latitude}</p:column>
-						<p:column>#{pescaMB.pescaria.longitude}</p:column>
+						rowClasses="order-table-odd-row,order-table-even-row" id="tabelaPescarias" >
+						
+						<f:facet name="header">
+    					    Lista de Pescarias
+    					</f:facet>
+						
+						<p:columnGroup type="header">
+            				<p:row>
+                				<p:column colspan="1" rowspan="2" headerText="Peixe" />
+                				<p:column colspan="1" rowspan="2" headerText="Quantidade" />
+                				<p:column colspan="2" headerText="Coordenadas" />
+            				</p:row>
+            				
+            				<p:row>
+            					<p:column colspan="1" headerText="Latitude" />
+                				<p:column colspan="1" headerText="Longitude" />
+            				</p:row>
+            			
+        				</p:columnGroup>
+						
+						
+						<p:column headerText="Peixe" >
+							<h:outputText value="#{pescaria.peixe.nome}" />
+						</p:column>
+						<p:column headerText="Quantidade">
+							<h:outputText value="#{pescaria.quantidade}" />
+						</p:column>
+						<p:column headerText="Latitude">	
+							<h:outputText value="#{pescaria.latitude}" />
+						</p:column>
+						<p:column headerText="Longitude">
+							<h:outputText value="#{pescaria.longitude}" />
+						</p:column>
+						
 					</p:dataTable>
 
 					<p:commandButton value="Salvar Pesca" action="#{pescaMB.salvarPesca}" />

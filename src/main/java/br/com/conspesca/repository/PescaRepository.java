@@ -2,18 +2,18 @@ package br.com.conspesca.repository;
 
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 
 import br.com.conspesca.model.Pesca;
 
-@Named
+
 public class PescaRepository {
 	
-	@Inject
-	EntityManager em;
+	EntityManagerFactory emf = Persistence.createEntityManagerFactory("conspesca");
+	EntityManager em = emf.createEntityManager();
 	
 	public void save(Pesca pesca){
 		this.em.merge(pesca);
