@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.conspesca.model.Peixe;
@@ -17,12 +19,23 @@ public class PeixeMB {
 	private Peixe peixe;
 	private Date data;
 
+	@EJB
 	private PeixeService peixeService;
 
-	public PeixeMB() {
+	
+	@Inject
+	public void init(){
 		this.peixes = new ArrayList<>();
 		this.peixe = new Peixe();
-		this.peixeService = new PeixeService();
+		
+		this.peixe.setEspecie("a");
+		this.peixe.setFimPesca(new Date());
+		this.peixe.setInicioPesca(new Date());
+		this.peixe.setNome("a");
+		this.peixe.setPesoMax(2D);
+		this.peixe.setTamanhoMax(3D);
+		
+		this.peixeService.salvar(this.peixe);
 	}
 
 	public Date getData() {

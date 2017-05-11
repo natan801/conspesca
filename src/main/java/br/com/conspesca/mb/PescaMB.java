@@ -4,9 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import javax.faces.view.ViewScoped;
 
 import org.primefaces.event.map.PointSelectEvent;
 import org.primefaces.model.map.LatLng;
@@ -19,8 +18,8 @@ import br.com.conspesca.service.FerramentaService;
 import br.com.conspesca.service.PeixeService;
 import br.com.conspesca.service.PescaService;
 
-@Named("pescaMB")
-@ViewScoped
+@Named
+@RequestScoped
 public class PescaMB implements Serializable{
 
 	
@@ -32,7 +31,7 @@ public class PescaMB implements Serializable{
 	private PescaService pescaService;
 
 	private Ferramenta ferramenta;
-	private List<Ferramenta> listaFerramentas = new ArrayList<Ferramenta>();
+	private List<Ferramenta> listaFerramentas = new ArrayList<>();
 	private FerramentaService ferramentaService = new FerramentaService();
 
 	private List<Peixe> peixes;
@@ -40,7 +39,7 @@ public class PescaMB implements Serializable{
 
 	private Pescaria pescaria;
 	private List<Pescaria> pescarias;
-	private List<Pescaria> pescariasAdicionadas = new ArrayList<Pescaria>();
+	private List<Pescaria> pescariasAdicionadas = new ArrayList<>();
 
 	private String latMap;
 	private String longMap;
@@ -152,15 +151,10 @@ public class PescaMB implements Serializable{
 	}
 
 	public String salvarPesca() {
-		try {
+		this.pesca.setPescarias(this.pescariasAdicionadas);
+		this.pescaService.salvar(this.pesca);
+		return "consultapesca";
 
-			this.pescaService.salvar(this.pesca);
-			return "consultapesca";
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 	
 

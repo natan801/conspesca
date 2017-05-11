@@ -21,7 +21,7 @@ public class Peixe implements Serializable {
 	private static final long serialVersionUID = -3720718774076438033L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_peixe")
 	private Integer idPeixe;
 
@@ -39,21 +39,6 @@ public class Peixe implements Serializable {
 	@OneToMany(mappedBy = "peixe")
 	private List<Pescaria> pescaria;
 
-	public Peixe() {
-
-	}
-
-	public Peixe(Integer idPeixe, String nome, String especie, Double tamanhoMax, Double pesoMax, Date inicioPesca,
-			Date fimPesca) {
-		super();
-		this.idPeixe = idPeixe;
-		this.nome = nome;
-		this.especie = especie;
-		this.tamanhoMax = tamanhoMax;
-		this.pesoMax = pesoMax;
-		this.inicioPesca = inicioPesca;
-		this.fimPesca = fimPesca;
-	}
 
 	public Integer getIdPeixe() {
 		return this.idPeixe;
@@ -96,7 +81,7 @@ public class Peixe implements Serializable {
 	}
 
 	public Date getInicioPesca() {
-		return inicioPesca;
+		return this.inicioPesca;
 	}
 
 	public void setInicioPesca(Date inicioPesca) {
@@ -104,7 +89,7 @@ public class Peixe implements Serializable {
 	}
 
 	public Date getFimPesca() {
-		return fimPesca;
+		return this.fimPesca;
 	}
 
 	public void setFimPesca(Date fimPesca) {
@@ -123,13 +108,7 @@ public class Peixe implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.especie == null) ? 0 : this.especie.hashCode());
-		result = prime * result + ((this.fimPesca == null) ? 0 : this.fimPesca.hashCode());
 		result = prime * result + ((this.idPeixe == null) ? 0 : this.idPeixe.hashCode());
-		result = prime * result + ((this.inicioPesca == null) ? 0 : this.inicioPesca.hashCode());
-		result = prime * result + ((this.nome == null) ? 0 : this.nome.hashCode());
-		result = prime * result + ((this.pesoMax == null) ? 0 : this.pesoMax.hashCode());
-		result = prime * result + ((this.tamanhoMax == null) ? 0 : this.tamanhoMax.hashCode());
 		return result;
 	}
 
@@ -142,42 +121,14 @@ public class Peixe implements Serializable {
 		if (this.getClass() != obj.getClass())
 			return false;
 		Peixe other = (Peixe) obj;
-		if (this.especie == null) {
-			if (other.especie != null)
-				return false;
-		} else if (!this.especie.equals(other.especie))
-			return false;
-		if (this.fimPesca == null) {
-			if (other.fimPesca != null)
-				return false;
-		} else if (!this.fimPesca.equals(other.fimPesca))
-			return false;
 		if (this.idPeixe == null) {
 			if (other.idPeixe != null)
 				return false;
 		} else if (!this.idPeixe.equals(other.idPeixe))
 			return false;
-		if (this.inicioPesca == null) {
-			if (other.inicioPesca != null)
-				return false;
-		} else if (!this.inicioPesca.equals(other.inicioPesca))
-			return false;
-		if (this.nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!this.nome.equals(other.nome))
-			return false;
-		if (this.pesoMax == null) {
-			if (other.pesoMax != null)
-				return false;
-		} else if (!this.pesoMax.equals(other.pesoMax))
-			return false;
-		if (this.tamanhoMax == null) {
-			if (other.tamanhoMax != null)
-				return false;
-		} else if (!this.tamanhoMax.equals(other.tamanhoMax))
-			return false;
 		return true;
 	}
+
+	
 
 }

@@ -2,13 +2,19 @@ package br.com.conspesca.service;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+
 import br.com.conspesca.model.Peixe;
 import br.com.conspesca.repository.PeixeRepository;
 
+@Stateless
 public class PeixeService {
 
-	PeixeRepository peixeRepository = new PeixeRepository();
+	@Inject
+	private PeixeRepository peixeRepository;
 
+	
 	public void salvar(Peixe peixe){
 		this.peixeRepository.save(peixe);
 	}
