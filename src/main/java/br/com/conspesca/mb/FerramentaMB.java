@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.conspesca.model.Ferramenta;
@@ -17,12 +19,13 @@ public class FerramentaMB {
 	private Ferramenta ferramenta;
 	private Date data;
 
+	@EJB
 	private FerramentaService ferramentaService;
 
-	public FerramentaMB() {
+	@Inject
+	public void init() {
 		this.ferramentas = new ArrayList<>();
 		this.ferramenta = new Ferramenta();
-		this.ferramentaService = new FerramentaService();
 	}
 
 	public Date getData() {
@@ -38,8 +41,6 @@ public class FerramentaMB {
 	}
 
 	public List<Ferramenta> getFerramentas() {
-		
-		this.ferramentas = this.ferramentaService.findAllFerramenta();
 		return this.ferramentas;
 	}
 

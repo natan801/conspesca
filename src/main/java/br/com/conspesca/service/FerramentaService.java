@@ -2,11 +2,17 @@ package br.com.conspesca.service;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+
 import br.com.conspesca.model.Ferramenta;
 import br.com.conspesca.repository.FerramentaRepository;
 
+@Stateless
 public class FerramentaService {
-	FerramentaRepository ferramentaRepository = new FerramentaRepository();
+	
+	@Inject
+	private FerramentaRepository ferramentaRepository;
 
 	public void salvar(Ferramenta ferramenta){
 		this.ferramentaRepository.save(ferramenta);

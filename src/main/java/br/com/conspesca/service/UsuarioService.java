@@ -2,12 +2,18 @@ package br.com.conspesca.service;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+
 import br.com.conspesca.model.Usuario;
 import br.com.conspesca.repository.UsuarioRepository;
 
+
+@Stateless
 public class UsuarioService {
 
-	UsuarioRepository usuarioRepository = new UsuarioRepository();
+	@Inject
+	private UsuarioRepository usuarioRepository;
 
 	public void salvar(Usuario usuario){
 		this.usuarioRepository.save(usuario);

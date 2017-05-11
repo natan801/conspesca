@@ -20,10 +20,6 @@ public class PeixeRepository {
 	private EntityManager em;
 
 	public void save(Peixe peixe) {
-		
-		
-		List<Peixe> peixes = this.findAll();
-		
 		this.em.persist(peixe);
 
 	}

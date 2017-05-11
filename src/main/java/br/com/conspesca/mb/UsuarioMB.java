@@ -4,25 +4,31 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.conspesca.model.Usuario;
 import br.com.conspesca.service.UsuarioService;
 
-@Named("usuarioMB")
+@Named
 @RequestScoped
 public class UsuarioMB {
+
 	private List<Usuario> usuarios;
 	private Usuario usuario;
 	private Date data;
 
+	@EJB
 	private UsuarioService usuarioService;
 
-	public UsuarioMB() {
+	@Inject
+	public void init() {
 		this.usuarios = new ArrayList<>();
 		this.usuario = new Usuario();
-		this.usuarioService = new UsuarioService();
+	
+		this.usuarios = this.usuarioService.findAllUsuario();
 	}
 
 	public Date getData() {
@@ -38,8 +44,6 @@ public class UsuarioMB {
 	}
 
 	public List<Usuario> getUsuarios() {
-		
-		this.usuarios = this.usuarioService.findAllUsuario();
 		return this.usuarios;
 	}
 

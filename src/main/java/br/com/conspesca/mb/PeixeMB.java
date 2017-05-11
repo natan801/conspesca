@@ -15,6 +15,8 @@ import br.com.conspesca.service.PeixeService;
 @Named
 @RequestScoped
 public class PeixeMB {
+	
+	
 	private List<Peixe> peixes;
 	private Peixe peixe;
 	private Date data;
@@ -22,20 +24,11 @@ public class PeixeMB {
 	@EJB
 	private PeixeService peixeService;
 
-	
 	@Inject
-	public void init(){
+	public void init() {
 		this.peixes = new ArrayList<>();
 		this.peixe = new Peixe();
 		
-		this.peixe.setEspecie("a");
-		this.peixe.setFimPesca(new Date());
-		this.peixe.setInicioPesca(new Date());
-		this.peixe.setNome("a");
-		this.peixe.setPesoMax(2D);
-		this.peixe.setTamanhoMax(3D);
-		
-		this.peixeService.salvar(this.peixe);
 	}
 
 	public Date getData() {
@@ -51,8 +44,6 @@ public class PeixeMB {
 	}
 
 	public List<Peixe> getPeixes() {
-
-		this.peixes = this.peixeService.findAllPeixe();
 
 		return this.peixes;
 	}
