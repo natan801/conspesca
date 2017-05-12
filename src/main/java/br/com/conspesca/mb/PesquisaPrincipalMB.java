@@ -74,7 +74,7 @@ public class PesquisaPrincipalMB implements Serializable {
 		circle3.setFillOpacity(0.7);
 
 		
-		
+		 
 		this.circleModel.addOverlay(circle1);
 		this.circleModel.addOverlay(circle2);
 		this.circleModel.addOverlay(circle3);
