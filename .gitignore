@@ -2,3 +2,6 @@ target/
 .settings/
 .settings
 *.settings
+*.classpath
+*.factorypath
+*.project
