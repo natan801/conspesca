@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/resources/template/template_principal.xhtml">
+
+	<ui:define name="title">Consultar Usuário</ui:define>
+
+	<ui:define name="conteudo">
+		<h:body>
+			<h:form>
+				<p:dataTable var="pesca" value="#{pescaMB.pescas}"
+					styleClass="order-table" headerClass="order-table-header"
+					rowClasses="order-table-odd-row,order-table-even-row" >
+
+					<p:column headerText="Usuario">
+						<h:outputText value="#{pesca.usuario.nome}" />
+					</p:column>
+
+					<p:column headerText="Ferramenta">
+						<h:outputText value="#{pesca.ferramenta.nome}" />
+					</p:column>
+
+					<p:column headerText="Data">
+						<h:outputText value="#{pesca.data}" />
+					</p:column>
+				
+					<p:column headerText="Duração">
+						<h:outputText value="#{pesca.duracao}" />
+					</p:column>
+				
+				</p:dataTable>
+				
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

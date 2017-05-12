@@ -16,7 +16,7 @@ public class PescaRepository {
 	private EntityManager em;
 
 	public void save(Pesca pesca) {
-		this.em.merge(pesca);
+		this.em.persist(pesca);
 	}
 
 	public Pesca find(int id) {

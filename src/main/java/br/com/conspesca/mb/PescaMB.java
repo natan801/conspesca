@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.EJB;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.event.map.PointSelectEvent;
@@ -17,59 +19,48 @@ import br.com.conspesca.model.Pescaria;
 import br.com.conspesca.service.FerramentaService;
 import br.com.conspesca.service.PeixeService;
 import br.com.conspesca.service.PescaService;
+import br.com.conspesca.service.UsuarioService;
 
 @Named
-@RequestScoped
-public class PescaMB implements Serializable{
+@ViewScoped
+public class PescaMB implements Serializable {
 
-	
 	private static final long serialVersionUID = 1L;
-	
+
 	private Pesca pesca;
 	private List<Pesca> pescas;
 
+	@EJB
 	private PescaService pescaService;
 
 	private Ferramenta ferramenta;
-	private List<Ferramenta> listaFerramentas = new ArrayList<>();
-	private FerramentaService ferramentaService = new FerramentaService();
+	private List<Ferramenta> listaFerramentas;
+
+	@EJB
+	private FerramentaService ferramentaService;
 
 	private List<Peixe> peixes;
+
+	@EJB
 	private PeixeService peixeService;
+
+	@EJB
+	private UsuarioService usuarioService;
 
 	private Pescaria pescaria;
 	private List<Pescaria> pescarias;
-	private List<Pescaria> pescariasAdicionadas = new ArrayList<>();
+	private List<Pescaria> pescariasAdicionadas;
 
-	private String latMap;
-	private String longMap;
-
-	public String getLatMap() {
-		return this.latMap;
-	}
-
-	public void setLatMap(String latMap) {
-		this.latMap = latMap;
-	}
-
-	public String getLongMap() {
-		return this.longMap;
-	}
-
-	public void setLongMap(String longMap) {
-		this.longMap = longMap;
-	}
-
-	
-	public PescaMB() {
+	@Inject
+	public void init() {
 		this.pesca = new Pesca();
 		this.pescaria = new Pescaria();
-		this.pescas = new ArrayList<>();
-		this.pescaService = new PescaService();
+		this.pescariasAdicionadas = new ArrayList<>();
+
 		this.listaFerramentas = this.ferramentaService.findAllFerramenta();
+		this.peixes = this.peixeService.findAllPeixe();
+		this.pescas = this.pescaService.findAllPesca();
 	}
-	
-	
 
 	public Pesca getPesca() {
 		return this.pesca;
@@ -95,16 +86,8 @@ public class PescaMB implements Serializable{
 		this.pescas = pescas;
 	}
 
-	public PescaService getPescaService() {
-		return this.pescaService;
-	}
-
-	public void setPescaService(PescaService pescaService) {
-		this.pescaService = pescaService;
-	}
-
 	public List<Ferramenta> getListaFerramentas() {
-		
+
 		return this.listaFerramentas;
 	}
 
@@ -129,17 +112,7 @@ public class PescaMB implements Serializable{
 	}
 
 	public List<Peixe> getPeixes() {
-		if (this.peixes == null) {
-			this.peixes = this.getPeixeService().findAllPeixe();
-		}
 		return this.peixes;
-	}
-
-	public PeixeService getPeixeService() {
-		if (this.peixeService == null) {
-			this.peixeService = new PeixeService();
-		}
-		return this.peixeService;
 	}
 
 	public List<Pescaria> getPescariasAdicionadas() {
@@ -151,23 +124,34 @@ public class PescaMB implements Serializable{
 	}
 
 	public String salvarPesca() {
+		
+		this.pesca.setUsuario(this.usuarioService.findUsuarioByID(1));
+		this.pesca.setFerramenta(this.ferramenta);
 		this.pesca.setPescarias(this.pescariasAdicionadas);
 		this.pescaService.salvar(this.pesca);
+
 		return "consultapesca";
 
 	}
-	
 
 	public void selecionaCoordenada(PointSelectEvent event) {
+
+		if (this.pescaria == null) {
+			this.pescaria = new Pescaria();
+		}
+
 		LatLng latLng = event.getLatLng();
 
-		this.pescaria.setLatitude( latLng.getLat());
+		this.pescaria.setLatitude(latLng.getLat());
 		this.pescaria.setLongitude(latLng.getLng());
 	}
 
 	public void adicionaPescaria() {
+
+		this.pescaria.setPesca(this.pesca);
 		this.pescariasAdicionadas.add(this.pescaria);
-		this.pescaria =  new Pescaria();
+
+		this.pescaria = new Pescaria();
 	}
 
 }

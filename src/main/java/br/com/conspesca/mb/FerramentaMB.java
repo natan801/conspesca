@@ -26,6 +26,8 @@ public class FerramentaMB {
 	public void init() {
 		this.ferramentas = new ArrayList<>();
 		this.ferramenta = new Ferramenta();
+		
+		this.ferramentas = this.ferramentaService.findAllFerramenta();
 	}
 
 	public Date getData() {
