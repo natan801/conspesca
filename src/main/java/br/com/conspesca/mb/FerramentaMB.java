@@ -1,11 +1,12 @@
 package br.com.conspesca.mb;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -13,10 +14,13 @@ import br.com.conspesca.model.Ferramenta;
 import br.com.conspesca.service.FerramentaService;
 
 @Named
-@RequestScoped
-public class FerramentaMB {
-	private List<Ferramenta> ferramentas;
+@ViewScoped
+public class FerramentaMB implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	private Ferramenta ferramenta;
+	private List<Ferramenta> ferramentas;
 	private Date data;
 
 	@EJB
@@ -26,7 +30,7 @@ public class FerramentaMB {
 	public void init() {
 		this.ferramentas = new ArrayList<>();
 		this.ferramenta = new Ferramenta();
-		
+
 		this.ferramentas = this.ferramentaService.findAllFerramenta();
 	}
 

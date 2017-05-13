@@ -18,8 +18,7 @@ import javax.persistence.OneToMany;
 public class Pesca implements Serializable {
 
 	private static final long serialVersionUID = 356497015054603327L;
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_pesca")
@@ -42,8 +41,7 @@ public class Pesca implements Serializable {
 	public Pesca() {
 	}
 
-	public Pesca(Integer idPesca, Calendar data, Calendar duracao,
-			String observacao) {
+	public Pesca(Integer idPesca, Calendar data, Calendar duracao, String observacao) {
 		super();
 		this.idPesca = idPesca;
 		this.data = data;
@@ -111,14 +109,7 @@ public class Pesca implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((this.data == null) ? 0 : this.data.hashCode());
-		result = prime * result
-				+ ((this.duracao == null) ? 0 : this.duracao.hashCode());
-		result = prime * result
-				+ ((this.idPesca == null) ? 0 : this.idPesca.hashCode());
-		result = prime * result
-				+ ((this.observacao == null) ? 0 : this.observacao.hashCode());
+		result = prime * result + ((idPesca == null) ? 0 : idPesca.hashCode());
 		return result;
 	}
 
@@ -128,28 +119,13 @@ public class Pesca implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (this.getClass() != obj.getClass())
+		if (getClass() != obj.getClass())
 			return false;
 		Pesca other = (Pesca) obj;
-		if (this.data == null) {
-			if (other.data != null)
-				return false;
-		} else if (!this.data.equals(other.data))
-			return false;
-		if (this.duracao == null) {
-			if (other.duracao != null)
-				return false;
-		} else if (!this.duracao.equals(other.duracao))
-			return false;
-		if (this.idPesca == null) {
+		if (idPesca == null) {
 			if (other.idPesca != null)
 				return false;
-		} else if (!this.idPesca.equals(other.idPesca))
-			return false;
-		if (this.observacao == null) {
-			if (other.observacao != null)
-				return false;
-		} else if (!this.observacao.equals(other.observacao))
+		} else if (!idPesca.equals(other.idPesca))
 			return false;
 		return true;
 	}

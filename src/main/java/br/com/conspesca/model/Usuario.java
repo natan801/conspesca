@@ -29,7 +29,7 @@ public class Usuario implements Serializable {
 	private String email;
 	private String login;
 	private String senha;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataNascimento;
 
@@ -106,12 +106,7 @@ public class Usuario implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.dataNascimento == null) ? 0 : this.dataNascimento.hashCode());
-		result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
-		result = prime * result + ((this.idUsuario == null) ? 0 : this.idUsuario.hashCode());
-		result = prime * result + ((this.login == null) ? 0 : this.login.hashCode());
-		result = prime * result + ((this.nome == null) ? 0 : this.nome.hashCode());
-		result = prime * result + ((this.senha == null) ? 0 : this.senha.hashCode());
+		result = prime * result + ((idUsuario == null) ? 0 : idUsuario.hashCode());
 		return result;
 	}
 
@@ -121,38 +116,13 @@ public class Usuario implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (this.getClass() != obj.getClass())
+		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		if (this.dataNascimento == null) {
-			if (other.dataNascimento != null)
-				return false;
-		} else if (!this.dataNascimento.equals(other.dataNascimento))
-			return false;
-		if (this.email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!this.email.equals(other.email))
-			return false;
-		if (this.idUsuario == null) {
+		if (idUsuario == null) {
 			if (other.idUsuario != null)
 				return false;
-		} else if (!this.idUsuario.equals(other.idUsuario))
-			return false;
-		if (this.login == null) {
-			if (other.login != null)
-				return false;
-		} else if (!this.login.equals(other.login))
-			return false;
-		if (this.nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!this.nome.equals(other.nome))
-			return false;
-		if (this.senha == null) {
-			if (other.senha != null)
-				return false;
-		} else if (!this.senha.equals(other.senha))
+		} else if (!idUsuario.equals(other.idUsuario))
 			return false;
 		return true;
 	}

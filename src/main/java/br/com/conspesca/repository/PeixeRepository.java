@@ -12,10 +12,6 @@ import br.com.conspesca.model.Peixe;
 @Named
 public class PeixeRepository {
 	
-	
-	public PeixeRepository() {
-	}
-
 	@PersistenceContext
 	private EntityManager em;
 

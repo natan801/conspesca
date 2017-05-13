@@ -72,12 +72,7 @@ public class Local implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((this.descricao == null) ? 0 : this.descricao.hashCode());
-		result = prime * result
-				+ ((this.idLocal == null) ? 0 : this.idLocal.hashCode());
-		result = prime * result
-				+ ((this.nome == null) ? 0 : this.nome.hashCode());
+		result = prime * result + ((idLocal == null) ? 0 : idLocal.hashCode());
 		return result;
 	}
 
@@ -87,23 +82,13 @@ public class Local implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (this.getClass() != obj.getClass())
+		if (getClass() != obj.getClass())
 			return false;
 		Local other = (Local) obj;
-		if (this.descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!this.descricao.equals(other.descricao))
-			return false;
-		if (this.idLocal == null) {
+		if (idLocal == null) {
 			if (other.idLocal != null)
 				return false;
-		} else if (!this.idLocal.equals(other.idLocal))
-			return false;
-		if (this.nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!this.nome.equals(other.nome))
+		} else if (!idLocal.equals(other.idLocal))
 			return false;
 		return true;
 	}

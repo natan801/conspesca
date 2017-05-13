@@ -1,11 +1,12 @@
 package br.com.conspesca.mb;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -13,10 +14,11 @@ import br.com.conspesca.model.Peixe;
 import br.com.conspesca.service.PeixeService;
 
 @Named
-@RequestScoped
-public class PeixeMB {
-	
-	
+@ViewScoped
+public class PeixeMB implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	private List<Peixe> peixes;
 	private Peixe peixe;
 	private Date data;
@@ -28,7 +30,9 @@ public class PeixeMB {
 	public void init() {
 		this.peixes = new ArrayList<>();
 		this.peixe = new Peixe();
-		
+
+		this.peixes = this.peixeService.findAllPeixe();
+
 	}
 
 	public Date getData() {

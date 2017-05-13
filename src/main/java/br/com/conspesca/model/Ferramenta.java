@@ -75,14 +75,7 @@ public class Ferramenta implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((this.descricao == null) ? 0 : this.descricao.hashCode());
-		result = prime
-				* result
-				+ ((this.idFerramenta == null) ? 0 : this.idFerramenta
-						.hashCode());
-		result = prime * result
-				+ ((this.nome == null) ? 0 : this.nome.hashCode());
+		result = prime * result + ((idFerramenta == null) ? 0 : idFerramenta.hashCode());
 		return result;
 	}
 
@@ -92,25 +85,18 @@ public class Ferramenta implements Serializable{
 			return true;
 		if (obj == null)
 			return false;
-		if (this.getClass() != obj.getClass())
+		if (getClass() != obj.getClass())
 			return false;
 		Ferramenta other = (Ferramenta) obj;
-		if (this.descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!this.descricao.equals(other.descricao))
-			return false;
-		if (this.idFerramenta == null) {
+		if (idFerramenta == null) {
 			if (other.idFerramenta != null)
 				return false;
-		} else if (!this.idFerramenta.equals(other.idFerramenta))
-			return false;
-		if (this.nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!this.nome.equals(other.nome))
+		} else if (!idFerramenta.equals(other.idFerramenta))
 			return false;
 		return true;
 	}
 
+	
+	
+	
 }

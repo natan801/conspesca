@@ -41,8 +41,7 @@ public class Pescaria implements Serializable {
 	public Pescaria() {
 	}
 
-	public Pescaria(Integer idPescaria, Integer quantidade, Double latitude,
-			Double longitude) {
+	public Pescaria(Integer idPescaria, Integer quantidade, Double latitude, Double longitude) {
 		super();
 		this.idPescaria = idPescaria;
 		this.quantidade = quantidade;
@@ -110,14 +109,7 @@ public class Pescaria implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((this.idPescaria == null) ? 0 : this.idPescaria.hashCode());
-		result = prime * result
-				+ ((this.latitude == null) ? 0 : this.latitude.hashCode());
-		result = prime * result
-				+ ((this.longitude == null) ? 0 : this.longitude.hashCode());
-		result = prime * result
-				+ ((this.quantidade == null) ? 0 : this.quantidade.hashCode());
+		result = prime * result + ((idPescaria == null) ? 0 : idPescaria.hashCode());
 		return result;
 	}
 
@@ -127,28 +119,13 @@ public class Pescaria implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (this.getClass() != obj.getClass())
+		if (getClass() != obj.getClass())
 			return false;
 		Pescaria other = (Pescaria) obj;
-		if (this.idPescaria == null) {
+		if (idPescaria == null) {
 			if (other.idPescaria != null)
 				return false;
-		} else if (!this.idPescaria.equals(other.idPescaria))
-			return false;
-		if (this.latitude == null) {
-			if (other.latitude != null)
-				return false;
-		} else if (!this.latitude.equals(other.latitude))
-			return false;
-		if (this.longitude == null) {
-			if (other.longitude != null)
-				return false;
-		} else if (!this.longitude.equals(other.longitude))
-			return false;
-		if (this.quantidade == null) {
-			if (other.quantidade != null)
-				return false;
-		} else if (!this.quantidade.equals(other.quantidade))
+		} else if (!idPescaria.equals(other.idPescaria))
 			return false;
 		return true;
 	}
