@@ -21,6 +21,22 @@ public class PescariaRepository {
 	@PersistenceContext
 	private EntityManager em;
 	
+	
+	public List<Pescaria> findByPeixeId(Integer idPeixe){
+		
+		CriteriaBuilder builder = this.em.getCriteriaBuilder();
+		CriteriaQuery<Pescaria> query = builder.createQuery(Pescaria.class);
+		Root<Pescaria> rootP = query.from(Pescaria.class);
+		
+		query.where(builder.equal(rootP.get("peixe").get("idPeixe"), idPeixe));
+
+		return this.em.createQuery(query).getResultList();
+		
+	}
+	
+	
+	
+	
 	public List<Pescaria> findAll(){
 		CriteriaQuery<Pescaria> cq = this.em.getCriteriaBuilder().createQuery(Pescaria.class);
 		cq.select(cq.from(Pescaria.class));
@@ -28,19 +44,19 @@ public class PescariaRepository {
 	}
 	
 	public List<Pescaria> findByPeixe(Peixe peixe){
-		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaBuilder builder = this.em.getCriteriaBuilder();
 		CriteriaQuery<Pescaria> query = builder.createQuery(Pescaria.class);
 		Root<Pescaria> from = query.from(Pescaria.class);
-		TypedQuery<Pescaria> typedQuery = em.createQuery(query.select(from).where(builder.equal(from.get("peixe"), peixe)));
+		TypedQuery<Pescaria> typedQuery = this.em.createQuery(query.select(from).where(builder.equal(from.get("peixe"), peixe)));
 		return typedQuery.getResultList();
 		
 	}
 	
 	public List<Pescaria> findByFerramenta(Ferramenta ferramenta){
-		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaBuilder builder = this.em.getCriteriaBuilder();
 		CriteriaQuery<Pescaria> query = builder.createQuery(Pescaria.class);
 		Root<Pescaria> from = query.from(Pescaria.class);
-		TypedQuery<Pescaria> typedQuery = em.createQuery(query.select(from).where(builder.equal(from.get("ferramenta"), ferramenta)));
+		TypedQuery<Pescaria> typedQuery = this.em.createQuery(query.select(from).where(builder.equal(from.get("ferramenta"), ferramenta)));
 		return typedQuery.getResultList();
 		
 	}

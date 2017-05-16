@@ -27,6 +27,10 @@ public class PescariaService {
 		return this.pescariaRepository.findByPeixe(peixe);
 	}
 
+	public List<Pescaria> findPescariasByPeixe(Integer id) {
+		return this.pescariaRepository.findByPeixeId(id);
+	}
+	
 	public List<Pescaria> findByFerramenta(Ferramenta ferramenta) {
 		return this.pescariaRepository.findByFerramenta(ferramenta);
 	}
@@ -35,7 +39,7 @@ public class PescariaService {
 
 		List<Pescaria> listaPescaria = this.findAllPescaria();
 
-		List<LatLng> coordenadas = new ArrayList<LatLng>();
+		List<LatLng> coordenadas = new ArrayList<>();
 
 		for (Pescaria pescaria : listaPescaria) {
 			LatLng coordenada = new LatLng(pescaria.getLatitude(), pescaria.getLongitude());
@@ -45,11 +49,9 @@ public class PescariaService {
 		return coordenadas;
 	}
 
-	public List<LatLng> getListaCoordenadasByPeixe(Peixe peixe) {
+	public List<LatLng> getListaCoordenadas(List<Pescaria> listaPescaria) {
 
-		List<Pescaria> listaPescaria = this.findByPeixe(peixe);
-
-		List<LatLng> coordenadas = new ArrayList<LatLng>();
+		List<LatLng> coordenadas = new ArrayList<>();
 
 		for (Pescaria pescaria : listaPescaria) {
 			LatLng coordenada = new LatLng(pescaria.getLatitude(), pescaria.getLongitude());
@@ -63,7 +65,7 @@ public class PescariaService {
 
 		List<Pescaria> listaPescaria = this.findByFerramenta(ferramenta);
 
-		List<LatLng> coordenadas = new ArrayList<LatLng>();
+		List<LatLng> coordenadas = new ArrayList<>();
 
 		for (Pescaria pescaria : listaPescaria) {
 			LatLng coordenada = new LatLng(pescaria.getLatitude(), pescaria.getLongitude());

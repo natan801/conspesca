@@ -14,8 +14,14 @@
 				<p:growl id="growl" life="3000" showDetail="true" sticky="true" />
 				<br /><br /><br />
 				<div align="center">
-				<p:gmap id="gmap" center="-27.658354, -48.599955" zoom="12"
-						type="HYBRID" style="width:800px;height:700px"
+
+				<p:autoComplete completeMethod="#{pesquisaPrincipalMB.findPeixes}" var="peixe" forceSelection="true" emptyMessage="Campo Obrigatório"  
+						value="#{pesquisaPrincipalMB.pesquisaPescaria}" itemLabel="#{peixe.nome}" itemValue="#{peixe.idPeixe}" accesskey="" >
+						<p:ajax event="itemSelect" listener="#{pesquisaPrincipalMB.onPeixeSelect}" update="gmap" />				
+				</p:autoComplete>
+
+				<p:gmap id="gmap" center="-27.658354, -48.599955" zoom="12" 
+						type="HYBRID" style="width:800px;height:700px; visibility: #{pesquisaPrincipalMB.circulos.size() > 0 ? 'visible' : 'hidden'};"
 						model="#{pesquisaPrincipalMB.circleModel}" >
 					
 					<p:ajax event="overlaySelect" listener="#{pesquisaPrincipalMB.onCircleSelect}"    update="growl" />
