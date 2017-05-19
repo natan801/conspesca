@@ -40,19 +40,20 @@
 								<h:outputLabel value="Coordenadas: " />
 								<p:inputText id="latitude" name="latitude" size="20" value="#{pescaMB.pescaria.latitude}" required="true" disabled="true"/>
 								<p:inputText id="longitude" name="longitude" size="20" value="#{pescaMB.pescaria.longitude}" required="true" disabled="true"/>
-								<p:commandButton id="btn" type="button" icon="ui-icon-pin-s" value="Mostrar Mapa" onclick="PF('dlg').show();" />
+								<p:commandButton id="btn" type="button" icon="ui-icon-pin-s" value="Mostrar Mapa" onclick="PF('dlg').show();" >
+								</p:commandButton>
 							</p:panel>
 						
 							<p:dialog id="mapDialog" widgetVar="dlg" width="800" height="500" modal="true" resizable="false">
 								<p:gmap id="gmap" center="-27.658354, -48.599955" zoom="11" type="HYBRID" style="width:100%;height:400px" disableDoubleClickZoom="true"
-								streetView="false"  disableDefaultUI="true">
-									 <p:ajax event="pointSelect" listener="#{pescaMB.selecionaCoordenada}" update="coordenadas" />
+								 model="#{pescaMB.draggableModel}"   streetView="false"  disableDefaultUI="true" >
+								 	
+    								<p:ajax event="markerDrag" listener="#{pescaMB.onMarkerDrag}" update="msgs" />
     							</p:gmap>
-								
-								<p:commandButton value="Adicionar" actionListener="#{pescaMB.selecionaCoordenada}"  oncomplete="PF('dlg').hide();" update="coordenadas"/>
 							</p:dialog>
 							
-						</h:panelGrid>
+
+	 					</h:panelGrid>
 						<br/>
 					
 						<p:commandButton value="Adicionar"	action="#{pescaMB.adicionaPescaria}" update=":form:tabelaPescarias" />

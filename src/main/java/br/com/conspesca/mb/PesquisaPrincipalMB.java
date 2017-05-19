@@ -4,13 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.map.OverlaySelectEvent;
 import org.primefaces.model.map.Circle;
 import org.primefaces.model.map.DefaultMapModel;
@@ -22,6 +23,7 @@ import br.com.conspesca.model.Pescaria;
 import br.com.conspesca.service.PeixeService;
 import br.com.conspesca.service.PescariaService;
 import br.com.conspesca.utils.CorUtil;
+import br.com.conspesca.utils.JsonParser;
 
 @Named
 @ViewScoped
@@ -41,49 +43,36 @@ public class PesquisaPrincipalMB implements Serializable {
 
 	private List<Circle> circulos;
 
-	
-	
-	@PostConstruct
+	@Inject
 	public void init() {
 
 		this.circleModel = new DefaultMapModel();
 		this.circulos = new ArrayList<>();
-		
-	}
 
-	
+	}
 
 	public Integer getPesquisaPescaria() {
 		return this.pesquisaPescaria;
 	}
 
-
-
 	public void setPesquisaPescaria(Integer pesquisaPescaria) {
 		this.pesquisaPescaria = pesquisaPescaria;
 	}
 
-
-
 	public List<Peixe> findPeixes(String query) {
 		return this.peixeService.findAllPeixe();
 	}
-	
-	
-	public void onPeixeSelect(){
+
+	public void onPeixeSelect() {
 		List<Pescaria> pescarias = this.pescariaService.findPescariasByPeixe(this.pesquisaPescaria);
-		
-		// chamar metodo pra atualizar os dados da  tela
 		List<LatLng> listaCoordenadas = this.pescariaService.getListaCoordenadas(pescarias);
-		
+
 		this.circulos = this.getListaCirculos(listaCoordenadas);
 		if (!this.circulos.isEmpty()) {
 			for (Circle circulo : this.circulos) {
 				this.circleModel.addOverlay(circulo);
 			}
 		}
-
-		
 	}
 
 	public MapModel getCircleModel() {
@@ -98,7 +87,7 @@ public class PesquisaPrincipalMB implements Serializable {
 			String cor = corUtil.getCor();
 			circulo.setStrokeColor(cor);
 			circulo.setFillColor(cor);
-
+			
 			listaCirculos.add(circulo);
 
 		}
@@ -106,8 +95,6 @@ public class PesquisaPrincipalMB implements Serializable {
 		return listaCirculos;
 	}
 
-	
-	
 	public List<Circle> getListaCirculos(List<LatLng> coordenadas, Peixe peixe) {
 		List<Circle> listaCirculos = new ArrayList<>();
 		CorUtil corUtil = new CorUtil();
@@ -116,7 +103,7 @@ public class PesquisaPrincipalMB implements Serializable {
 			String cor = corUtil.getCor();
 			circulo.setStrokeColor(cor);
 			circulo.setFillColor(cor);
-
+			
 			circulo.setData(peixe);
 			listaCirculos.add(circulo);
 
@@ -125,21 +112,27 @@ public class PesquisaPrincipalMB implements Serializable {
 		return listaCirculos;
 	}
 
-	
-	
-	
-	
 	public void onCircleSelect(OverlaySelectEvent event) {
 		Circle circulo = (Circle) event.getOverlay();
 		Peixe peixeSelecionado = (Peixe) circulo.getData();
 		FacesContext context = FacesContext.getCurrentInstance();
 
-		context.addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Circulo selecionado", peixeSelecionado.getNome()));
+		context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Circulo selecionado", peixeSelecionado.getNome()));
 
 	}
-	
+
 	public List<Circle> getCirculos() {
 		return this.circulos;
+	}
+
+	public void atualizarClusterCoordenada() {
+		
+		List<Pescaria> pescarias = this.pescariaService.findPescariasByPeixe(this.pesquisaPescaria);
+		List<LatLng> coordenadas = this.pescariaService.getListaCoordenadas(pescarias);
+		
+		JsonParser jsonParser = new JsonParser();
+				
+		RequestContext rc= RequestContext.getCurrentInstance();
+		rc.addCallbackParam("coordenadas", jsonParser.parserArrayToJson(coordenadas));
 	}
 }

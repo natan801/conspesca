@@ -7,23 +7,51 @@
 
 	<ui:define name="title">Cadastro de Pesca</ui:define>
 
+	<ui:define name="head">
+		<script
+			src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+	</ui:define>
+
 
 	<ui:define name="conteudo">
 
 		<h:body>
-			<h:form id="mainForm">
-				<p:datatable id="datatable">
-				</p:datatable>
+			<script type="text/javascript">
+				function initMap(xhr,status,args) {
+					var listaCoordenadas = JSON.parse(args.coordenadas)
+					
+			        var map = new google.maps.Map(document.getElementById('map'), {
+			          zoom: 12,
+			          center: {lat: -27.658354,lng: -48.599955}
+			        });
+	
+			        // Create an array of alphabetical characters used to label the markers.
+			        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	
+			        var markers = listaCoordenadas.map(function(location, i) {
+			          return new google.maps.Marker({
+			            position: location,
+			            label: labels[i % labels.length]
+			          });
+			        });
+	
+			        var markerCluster = new MarkerClusterer(map, markers,
+			            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+			      }
+			</script>
+			<h:form>
+				<div align="center">
+				
+				<p:autoComplete completeMethod="#{pesquisaPrincipalMB.findPeixes}" var="peixe" forceSelection="true" emptyMessage="Campo Obrigatório"
+					value="#{pesquisaPrincipalMB.pesquisaPescaria}" itemLabel="#{peixe.nome}" itemValue="#{peixe.idPeixe}" accesskey="">
+					
+					<p:ajax event="itemSelect" listener="#{pesquisaPrincipalMB.atualizarClusterCoordenada}" oncomplete="initMap(xhr,status,args)"/>
+				
+				</p:autoComplete>
+				
+				<div  id="map" style="width:800px;height:700px"></div>
+				</div>
 			</h:form>
-			
-			<p:dialog widgetVar="dlg" modal="true" appendTo="@(body)">
-				<h:form id="subForm">
-					<p:commandButton id="updator"
-						actionListener="#{javaBean.updateGrid()}"
-						update="mainForm:datatable" oncomplete="dlg.hide()"
-						update="#{p:component('datatable')}" />
-				</h:form>
-			</p:dialog>
 		</h:body>
 	</ui:define>
 

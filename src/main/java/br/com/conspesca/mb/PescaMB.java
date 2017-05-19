@@ -5,12 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.event.map.MarkerDragEvent;
 import org.primefaces.event.map.PointSelectEvent;
+import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 
 import br.com.conspesca.model.Ferramenta;
 import br.com.conspesca.model.Peixe;
@@ -51,15 +57,38 @@ public class PescaMB implements Serializable {
 	private List<Pescaria> pescarias;
 	private List<Pescaria> pescariasAdicionadas;
 
+	private String latLng;
+
+	private MapModel draggableModel;
+
+	private Marker marker;
+
 	@Inject
 	public void init() {
+
+		this.draggableModel = new DefaultMapModel();
+
 		this.pesca = new Pesca();
+
 		this.pescaria = new Pescaria();
 		this.pescariasAdicionadas = new ArrayList<>();
 
 		this.listaFerramentas = this.ferramentaService.findAllFerramenta();
 		this.peixes = this.peixeService.findAllPeixe();
 		this.pescas = this.pescaService.findAllPesca();
+
+	}
+
+	public MapModel getDraggableModel() {
+		return this.draggableModel;
+	}
+
+	public String getLatLng() {
+		return this.latLng;
+	}
+
+	public void setLatLng(String latLng) {
+		this.latLng = latLng;
 	}
 
 	public Pesca getPesca() {
@@ -124,7 +153,7 @@ public class PescaMB implements Serializable {
 	}
 
 	public String salvarPesca() {
-		
+
 		this.pesca.setUsuario(this.usuarioService.findUsuarioByID(1));
 		this.pesca.setFerramenta(this.ferramenta);
 		this.pesca.setPescarias(this.pescariasAdicionadas);
@@ -152,6 +181,23 @@ public class PescaMB implements Serializable {
 		this.pescariasAdicionadas.add(this.pescaria);
 
 		this.pescaria = new Pescaria();
+	}
+
+	public void mostrarMapa() {
+		LatLng coord1 = new LatLng(-27.658354, -48.599955);
+		this.draggableModel.addOverlay(new Marker(coord1, this.latLng.toString()));
+
+		for (Marker premarker : this.draggableModel.getMarkers()) {
+			premarker.setDraggable(true);
+		}
+	}
+
+	public void onMarkerDrag(MarkerDragEvent event) {
+		this.marker = event.getMarker();
+
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Marker Dragged",
+						"Lat:" + this.marker.getLatlng().getLat() + ", Lng:" + this.marker.getLatlng().getLng()));
 	}
 
 }
