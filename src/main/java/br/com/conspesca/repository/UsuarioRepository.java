@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 
+import br.com.conspesca.VO.UserSession;
 import br.com.conspesca.model.Usuario;
 
 @Named
@@ -37,6 +38,11 @@ public class UsuarioRepository {
 		CriteriaQuery<Usuario> cq = this.em.getCriteriaBuilder().createQuery(Usuario.class);
 		cq.select(cq.from(Usuario.class));
 		return this.em.createQuery(cq).getResultList();
+	}
+
+	public UserSession findUserSessionByUserSenha(String login, String senha) {
+		
+		return new UserSession("natan","natan");
 	}
 
 }

@@ -1,6 +1,5 @@
 package br.com.conspesca.mb;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +14,7 @@ import br.com.conspesca.service.PeixeService;
 
 @Named
 @ViewScoped
-public class PeixeMB implements Serializable {
+public class PeixeMB extends BaseMB{
 
 	private static final long serialVersionUID = 1L;
 
@@ -26,8 +25,12 @@ public class PeixeMB implements Serializable {
 	@EJB
 	private PeixeService peixeService;
 
+	@Override
 	@Inject
 	public void init() {
+		super.init();
+		
+		
 		this.peixes = new ArrayList<>();
 		this.peixe = new Peixe();
 

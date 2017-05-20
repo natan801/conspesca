@@ -5,7 +5,10 @@ import java.util.List;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import br.com.conspesca.model.Peixe;
 
@@ -36,6 +39,16 @@ public class PeixeRepository {
 	public List<Peixe> findAll() {
 		CriteriaQuery<Peixe> cq = this.em.getCriteriaBuilder().createQuery(Peixe.class);
 		cq.select(cq.from(Peixe.class));
+		return this.em.createQuery(cq).getResultList();
+	}
+
+	public List<Peixe> findPeixeByQuery(String pesquisaPeixe) {
+		CriteriaBuilder builder = this.em.getCriteriaBuilder();
+		CriteriaQuery<Peixe> cq = builder.createQuery(Peixe.class);
+		Root<Peixe> rootP = cq.from(Peixe.class);
+		Predicate like = builder.like(rootP.get("nome"), pesquisaPeixe+"%");
+		cq.where(like);
+		
 		return this.em.createQuery(cq).getResultList();
 	}
 

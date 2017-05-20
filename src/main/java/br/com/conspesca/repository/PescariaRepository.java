@@ -34,9 +34,6 @@ public class PescariaRepository {
 		
 	}
 	
-	
-	
-	
 	public List<Pescaria> findAll(){
 		CriteriaQuery<Pescaria> cq = this.em.getCriteriaBuilder().createQuery(Pescaria.class);
 		cq.select(cq.from(Pescaria.class));

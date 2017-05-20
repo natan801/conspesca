@@ -31,4 +31,9 @@ public class PeixeService {
 		return this.peixeRepository.findAll();
 	}
 	
+	public List<Peixe> findPeixeByQuery(String query){
+		return this.peixeRepository.findPeixeByQuery(query);
+		 
+	}
+	
 }

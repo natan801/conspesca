@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import br.com.conspesca.VO.UserSession;
 import br.com.conspesca.model.Usuario;
 import br.com.conspesca.repository.UsuarioRepository;
 
@@ -30,5 +31,10 @@ public class UsuarioService {
 	public List<Usuario> findAllUsuario(){
 		return this.usuarioRepository.findAll();
 	}
+	
+	public UserSession findUserSession(String login, String senha){
+		return this.usuarioRepository.findUserSessionByUserSenha(login,senha);
+	}
+	
 	
 }

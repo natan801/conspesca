@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/resources/template/template_principal.xhtml">
+
+
+	<ui:define name="title">Cadastro de Pesca</ui:define>
+
+	<ui:define name="head">
+		<script
+			src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+	</ui:define>
+
+
+	<ui:define name="conteudo">
+
+		<h:body>
+			Login
+			<h:form>
+			<h:outputLabel value="Login" />
+			<p:inputText value="#{loginMB.login}" />
+			
+			<h:outputLabel value="Senha:" />
+			<p:password value="#{loginMB.senha}" />
+			
+			<p:commandButton action="#{loginMB.logar}" value="LOGAR" />
+		
+		</h:form>
+		</h:body>
+	</ui:define>
+
+
+</ui:composition>

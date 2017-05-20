@@ -60,7 +60,8 @@ public class PesquisaPrincipalMB implements Serializable {
 	}
 
 	public List<Peixe> findPeixes(String query) {
-		return this.peixeService.findAllPeixe();
+		
+		return this.peixeService.findPeixeByQuery(query);
 	}
 
 	public void onPeixeSelect() {
