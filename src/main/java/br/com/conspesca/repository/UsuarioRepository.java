@@ -5,9 +5,12 @@ import java.util.List;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
-import br.com.conspesca.VO.UserSession;
+import br.com.conspesca.VO.UserSessionVO;
 import br.com.conspesca.model.Usuario;
 
 @Named
@@ -40,9 +43,22 @@ public class UsuarioRepository {
 		return this.em.createQuery(cq).getResultList();
 	}
 
-	public UserSession findUserSessionByUserSenha(String login, String senha) {
+	public UserSessionVO findUserSessionByUserSenha(String login, String senha) {
+		CriteriaBuilder builder = this.em.getCriteriaBuilder();
+		CriteriaQuery<Usuario> query = builder.createQuery(Usuario.class);
+		Root<Usuario> rootU = query.from(Usuario.class);
+
+		Predicate equalLogin =builder.equal(rootU.get("login"), login);
+		Predicate equalSenha = builder.equal(rootU.get("senha"), senha);
 		
-		return new UserSession("natan","natan");
+		query.where(equalLogin, equalSenha);
+		
+		try {
+			Usuario usuarioLogado = this.em.createQuery(query).getSingleResult();
+			return new UserSessionVO(usuarioLogado.getIdusuario().toString(),usuarioLogado.getNome(), usuarioLogado.getLogin());
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 }

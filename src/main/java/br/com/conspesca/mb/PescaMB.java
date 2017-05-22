@@ -1,6 +1,5 @@
 package br.com.conspesca.mb;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +21,7 @@ import br.com.conspesca.model.Ferramenta;
 import br.com.conspesca.model.Peixe;
 import br.com.conspesca.model.Pesca;
 import br.com.conspesca.model.Pescaria;
+import br.com.conspesca.model.Usuario;
 import br.com.conspesca.service.FerramentaService;
 import br.com.conspesca.service.PeixeService;
 import br.com.conspesca.service.PescaService;
@@ -29,23 +29,30 @@ import br.com.conspesca.service.UsuarioService;
 
 @Named
 @ViewScoped
-public class PescaMB implements Serializable {
+public class PescaMB extends BaseMB {
 
 	private static final long serialVersionUID = 1L;
 
 	private Pesca pesca;
 	private List<Pesca> pescas;
 
-	@EJB
-	private PescaService pescaService;
-
 	private Ferramenta ferramenta;
 	private List<Ferramenta> listaFerramentas;
 
+	private List<Peixe> peixes;
+
+	private Pescaria pescaria;
+	private List<Pescaria> pescarias;
+	private List<Pescaria> pescariasAdicionadas;
+
+	private MapModel draggableModel;
+	private Marker marker;
+
+	@EJB
+	private PescaService pescaService;
+
 	@EJB
 	private FerramentaService ferramentaService;
-
-	private List<Peixe> peixes;
 
 	@EJB
 	private PeixeService peixeService;
@@ -53,21 +60,16 @@ public class PescaMB implements Serializable {
 	@EJB
 	private UsuarioService usuarioService;
 
-	private Pescaria pescaria;
-	private List<Pescaria> pescarias;
-	private List<Pescaria> pescariasAdicionadas;
-
-
-	private MapModel draggableModel;
-
-	private Marker marker;
-
+	@Override
 	@Inject
 	public void init() {
-
+		super.init();
 		this.draggableModel = new DefaultMapModel();
-
 		this.pesca = new Pesca();
+
+		String idUsuario = super.userSession.getId();
+		Usuario usuarioLogado = this.usuarioService.findUsuarioByID(Integer.parseInt(idUsuario));
+		this.pesca.setUsuario(usuarioLogado);
 
 		this.pescaria = new Pescaria();
 		this.pescariasAdicionadas = new ArrayList<>();
@@ -144,7 +146,6 @@ public class PescaMB implements Serializable {
 
 	public String salvarPesca() {
 
-		this.pesca.setUsuario(this.usuarioService.findUsuarioByID(1));
 		this.pesca.setFerramenta(this.ferramenta);
 		this.pesca.setPescarias(this.pescariasAdicionadas);
 		this.pescaService.salvar(this.pesca);

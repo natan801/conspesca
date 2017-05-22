@@ -5,20 +5,22 @@ import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 
 @SessionScoped
-public class UserSession implements Serializable{
+public class UserSessionVO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
+	
+	private String id;
 	private String nome;
 	private String login;
 
 	
-	public UserSession(String nome, String login) {
+	public UserSessionVO(String id,String nome, String login) {
+		this.id = id;
 		this.nome = nome;
 		this.login = login;
 	}
 	
-	public UserSession() {
+	public UserSessionVO() {
 	}
 
 	public String getNome() {
@@ -37,12 +39,21 @@ public class UserSession implements Serializable{
 		this.login = login;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.login == null) ? 0 : this.login.hashCode());
-		result = prime * result + ((this.nome == null) ? 0 : this.nome.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((login == null) ? 0 : login.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
 
@@ -52,20 +63,27 @@ public class UserSession implements Serializable{
 			return true;
 		if (obj == null)
 			return false;
-		if (this.getClass() != obj.getClass())
+		if (getClass() != obj.getClass())
 			return false;
-		UserSession other = (UserSession) obj;
-		if (this.login == null) {
+		UserSessionVO other = (UserSessionVO) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (login == null) {
 			if (other.login != null)
 				return false;
-		} else if (!this.login.equals(other.login))
+		} else if (!login.equals(other.login))
 			return false;
-		if (this.nome == null) {
+		if (nome == null) {
 			if (other.nome != null)
 				return false;
-		} else if (!this.nome.equals(other.nome))
+		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
 	}
-
+	
+	
+	
 }

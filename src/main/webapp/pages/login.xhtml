@@ -16,16 +16,16 @@
 	<ui:define name="conteudo">
 
 		<h:body>
-			Login
 			<h:form>
+			<p:growl id="messageLogin" showDetail="true" />  
 			<h:outputLabel value="Login" />
 			<p:inputText value="#{loginMB.login}" />
 			
 			<h:outputLabel value="Senha:" />
 			<p:password value="#{loginMB.senha}" />
 			
-			<p:commandButton action="#{loginMB.logar}" value="LOGAR" />
-		
+			<p:commandButton action="#{loginMB.logar}" value="LOGAR" update="messageLogin"/>
+			
 		</h:form>
 		</h:body>
 	</ui:define>

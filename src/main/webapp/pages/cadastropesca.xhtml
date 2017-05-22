@@ -15,10 +15,10 @@
 				<h:panelGrid header="Pesca" columns="1">
 					<h:panelGrid columns="2">
 						<h:outputLabel value="Usuario: " />
-						<p:inputText id="usuario" name="usuario" size="60" value="Natan" required="true" />
+						<p:inputText id="usuario" name="usuario" size="60" value="#{pescaMB.pesca.usuario.nome}" disabled="true" />
 
 						<h:outputLabel value="Ferramenta: " />
-						<p:selectOneMenu effect="fade" value="#{pescaMB.ferramenta}" id="selectFerramenta" converter="ferramentaConverter"	required="true">
+						<p:selectOneMenu effect="fade" value="#{pescaMB.pesca.ferramenta}" id="selectFerramenta" converter="ferramentaConverter"	required="true">
 							<f:selectItems value="#{pescaMB.listaFerramentas}" var="f" itemLabel="#{f.nome}" itemValue="#{f}" />
 						</p:selectOneMenu>
 					</h:panelGrid>

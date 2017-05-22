@@ -7,7 +7,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
-import br.com.conspesca.VO.UserSession;
+import br.com.conspesca.VO.UserSessionVO;
 
 @Named
 @SessionScoped
@@ -17,24 +17,24 @@ public class SessionSecurity implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private UserSession userSession;
+	private UserSessionVO userSession;
 
-	public UserSession getUserAuthentication(){
+	public UserSessionVO getUserAuthentication(){
 		
 		return this.userSession;
 	}
 	
 	
-	public UserSession getUserSession() {
+	public UserSessionVO getUserSession() {
 		return this.userSession;
 	}
 
-	public void setUserSession(UserSession userSession) {
+	public void setUserSession(UserSessionVO userSession) {
 		this.userSession = userSession;
 	}
 
 
-	public void authenticationUser(UserSession userSessionAutenticado) {
+	public void authenticationUser(UserSessionVO userSessionAutenticado) {
 		
 		this.userSession = userSessionAutenticado;
 		

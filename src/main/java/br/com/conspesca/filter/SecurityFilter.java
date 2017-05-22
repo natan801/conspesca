@@ -13,7 +13,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.conspesca.VO.UserSession;
+import br.com.conspesca.VO.UserSessionVO;
 import br.com.conspesca.security.SessionSecurity;
 
 @WebFilter
@@ -41,7 +41,7 @@ public class SecurityFilter implements Filter{
 				return;
 			}
 		
-			UserSession userAuthentication = this.sessionSecurity.getUserAuthentication();
+			UserSessionVO userAuthentication = this.sessionSecurity.getUserAuthentication();
 			
 			String paginaAtual = httpServletRequest.getServletPath();
 			
