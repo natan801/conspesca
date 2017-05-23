@@ -66,11 +66,11 @@ public class PescaMB extends BaseMB {
 		super.init();
 		this.draggableModel = new DefaultMapModel();
 		this.pesca = new Pesca();
-
-		String idUsuario = super.userSession.getId();
-		Usuario usuarioLogado = this.usuarioService.findUsuarioByID(Integer.parseInt(idUsuario));
-		this.pesca.setUsuario(usuarioLogado);
-
+		if (super.userSession != null) {
+			String idUsuario = super.userSession.getId();
+			Usuario usuarioLogado = this.usuarioService.findUsuarioByID(Integer.parseInt(idUsuario));
+			this.pesca.setUsuario(usuarioLogado);
+		}
 		this.pescaria = new Pescaria();
 		this.pescariasAdicionadas = new ArrayList<>();
 

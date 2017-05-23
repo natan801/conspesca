@@ -13,26 +13,17 @@
 			
 		<ui:insert name="head" />
 
-		<style>
-		
-* {
-	border-style: none;
-	font-weight: normal;
-	font-size: 10pt;
-	vertical-align: bottom;
-}
-
-.div {
-	margin: 0 auto;
-}
-</style>
 		<f:facet name="first">
 			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
 			<title><ui:insert name="title" /></title>
 		</f:facet>
 
 
+		<h:outputStylesheet library="css" name="principal.css" />
+		<h:outputStylesheet library="css" name="default.css" />
+
 	</h:head>
+	
 	<h:body>
 		<div>
 			<ui:insert name="cabecalho">
@@ -40,7 +31,7 @@
 			</ui:insert>
 		</div>
 
-		<div style="width: 80%;" class="div">
+		<div class="conteudo">
 			<ui:insert name="conteudo" />
 		</div>
 	</h:body>

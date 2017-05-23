@@ -30,7 +30,10 @@
 			</p:submenu>
 		
 				<f:facet name="options">
-		            <p:commandButton  value="Logout" action="#{loginMB.logout}" icon="ui-icon-extlink" update="messageLogout"/>
+					<p:splitButton value="#{sessionSecurity.userSession.nome}" rendered="#{sessionSecurity.userSession ne null}" icon="ui-icon-person" >
+				         <p:menuitem value="Logout" action="#{loginMB.logout}" update="messageLogout"/>						
+					</p:splitButton>
+					<p:commandButton value="Login" action="/pages/login.xhtml"  rendered="#{sessionSecurity.userSession eq null}" icon="ui-icon-key"  />
 		        </f:facet>
 		</p:menubar>
 	</h:form>

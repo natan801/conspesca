@@ -2,7 +2,6 @@ package br.com.conspesca.repository;
 
 import java.util.List;
 
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -13,7 +12,7 @@ import javax.persistence.criteria.Root;
 import br.com.conspesca.VO.UserSessionVO;
 import br.com.conspesca.model.Usuario;
 
-@Named
+
 public class UsuarioRepository {
 
 	@PersistenceContext
