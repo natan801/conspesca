@@ -6,102 +6,112 @@
 	template="/resources/template/template_principal.xhtml">
 
 	<ui:define name="title">Cadastro de Pesca</ui:define>
-
+	
+	<ui:define name="head">
+		<h:outputStylesheet library="css" name="login.css" />
+	</ui:define>
+	
+	
 	<ui:define name="conteudo">
 		<h:body>
-			<h:form id="form">
+			<h:form id="form" styleClass="login-form">
 				<p:messages id="mensagem" autoUpdate="true" />
-
-				<h:panelGrid header="Pesca" columns="1">
-					<h:panelGrid columns="2">
-						<h:outputLabel value="Usuario: " />
-						<p:inputText id="usuario" name="usuario" size="60" value="#{pescaMB.pesca.usuario.nome}" disabled="true" />
-
-						<h:outputLabel value="Ferramenta: " />
-						<p:selectOneMenu effect="fade" value="#{pescaMB.pesca.ferramenta}" id="selectFerramenta" converter="ferramentaConverter"	required="true">
-							<f:selectItems value="#{pescaMB.listaFerramentas}" var="f" itemLabel="#{f.nome}" itemValue="#{f}" />
-						</p:selectOneMenu>
-					</h:panelGrid>
-
-					<p:fieldset legend="Pescaria" style="margin-bottom:20px">
-						<p:growl id="msgs" />
-						<h:panelGrid columns="10">
-
-							<h:outputLabel value="Peixe: " />
-							<p:selectOneMenu effect="fade" value="#{pescaMB.pescaria.peixe}"	id="selectPeixe" converter="peixeConverter" required="true">
-								<f:selectItems value="#{pescaMB.peixes}" var="p" itemLabel="#{p.nome}" itemValue="#{p}" />
-							</p:selectOneMenu>
-
-							<h:outputLabel value="Quantidade: " />
-							<p:inputText id="quantidade" name="quantidade" size="4"	maxlength="5" value="#{pescaMB.pescaria.quantidade}" />
-						
-						
-							<p:panel id="coordenadas">
-								<h:outputLabel value="Coordenadas: " />
-								<p:inputText id="latitude" name="latitude" size="20" value="#{pescaMB.pescaria.latitude}" required="true" disabled="true"/>
-								<p:inputText id="longitude" name="longitude" size="20" value="#{pescaMB.pescaria.longitude}" required="true" disabled="true"/>
-								<p:commandButton id="btn" type="button" icon="ui-icon-pin-s" value="Mostrar Mapa" onclick="PF('dlg').show();" >
-								</p:commandButton>
-							</p:panel>
-						
-							<p:dialog id="mapDialog" widgetVar="dlg" width="800" height="500" modal="true" resizable="false">
-								<p:gmap id="gmap" center="-27.658354, -48.599955" zoom="11" type="HYBRID" style="width:100%;height:400px" disableDoubleClickZoom="true"
-								 model="#{pescaMB.draggableModel}"   streetView="false"  disableDefaultUI="true" >
-								 	
-    								<p:ajax event="markerDrag" listener="#{pescaMB.onMarkerDrag}" update="msgs" />
-    							</p:gmap>
-							</p:dialog>
+				
+				<div class="conteudo-page">
+					<div class="form">
+				
+						<h:panelGrid header="Pesca" columns="1">
+							<h:panelGrid columns="2">
+								<h:outputLabel value="Usuario: " />
+								<p:inputText id="usuario" name="usuario" size="60" value="#{pescaMB.pesca.usuario.nome}" disabled="true" />
+		
+								<h:outputLabel value="Ferramenta: " />
+								<p:selectOneMenu effect="fade" value="#{pescaMB.pesca.ferramenta}" id="selectFerramenta" converter="ferramentaConverter"	required="true">
+									<f:selectItems value="#{pescaMB.listaFerramentas}" var="f" itemLabel="#{f.nome}" itemValue="#{f}" />
+								</p:selectOneMenu>
+							</h:panelGrid>
+		
+							<p:fieldset legend="Pescaria" style="margin-bottom:20px">
+								<p:growl id="msgs" />
+								<h:panelGrid columns="10">
+		
+									<h:outputLabel value="Peixe: " />
+									<p:selectOneMenu effect="fade" value="#{pescaMB.pescaria.peixe}"	id="selectPeixe" converter="peixeConverter" required="true">
+										<f:selectItems value="#{pescaMB.peixes}" var="p" itemLabel="#{p.nome}" itemValue="#{p}" />
+									</p:selectOneMenu>
+		
+									<h:outputLabel value="Quantidade: " />
+									<p:inputText id="quantidade" name="quantidade" size="4"	maxlength="5" value="#{pescaMB.pescaria.quantidade}" />
+								
+								
+									<p:panel id="coordenadas">
+										<h:outputLabel value="Coordenadas: " />
+										<p:inputText id="latitude" name="latitude" size="20" value="#{pescaMB.pescaria.latitude}" required="true" disabled="true"/>
+										<p:inputText id="longitude" name="longitude" size="20" value="#{pescaMB.pescaria.longitude}" required="true" disabled="true"/>
+										<p:commandButton id="btn" type="button" icon="ui-icon-pin-s" value="Mostrar Mapa" onclick="PF('dlg').show();" >
+										</p:commandButton>
+									</p:panel>
+								
+									<p:dialog id="mapDialog" widgetVar="dlg" width="800" height="500" modal="true" resizable="false">
+										<p:gmap id="gmap" center="-27.658354, -48.599955" zoom="11" type="HYBRID" style="width:100%;height:400px" disableDoubleClickZoom="true"
+										 model="#{pescaMB.draggableModel}"   streetView="false"  disableDefaultUI="true" >
+										 	
+		    								<p:ajax event="markerDrag" listener="#{pescaMB.onMarkerDrag}" update="msgs" />
+		    							</p:gmap>
+									</p:dialog>
+									
+		
+			 					</h:panelGrid>
+								<br/>
 							
-
-	 					</h:panelGrid>
-						<br/>
-					
-						<p:commandButton value="Adicionar"	action="#{pescaMB.adicionaPescaria}" update=":form:tabelaPescarias" />
-						
-						</p:fieldset>
-
-					
-					<p:dataTable value="#{pescaMB.pescariasAdicionadas}" var="pescaria"	styleClass="order-table" headerClass="order-table-header"
-						rowClasses="order-table-odd-row,order-table-even-row" id="tabelaPescarias" >
-						
-						<f:facet name="header">
-    					    Lista de Pescarias
-    					</f:facet>
-						
-						<p:columnGroup type="header">
-            				<p:row>
-                				<p:column colspan="1" rowspan="2" headerText="Peixe" />
-                				<p:column colspan="1" rowspan="2" headerText="Quantidade" />
-                				<p:column colspan="2" headerText="Coordenadas" />
-            				</p:row>
-            				
-            				<p:row>
-            					<p:column colspan="1" headerText="Latitude" />
-                				<p:column colspan="1" headerText="Longitude" />
-            				</p:row>
-            			
-        				</p:columnGroup>
-						
-						
-						<p:column headerText="Peixe" >
-							<h:outputText value="#{pescaria.peixe.nome}" />
-						</p:column>
-						<p:column headerText="Quantidade">
-							<h:outputText value="#{pescaria.quantidade}" />
-						</p:column>
-						<p:column headerText="Latitude">	
-							<h:outputText value="#{pescaria.latitude}" />
-						</p:column>
-						<p:column headerText="Longitude">
-							<h:outputText value="#{pescaria.longitude}" />
-						</p:column>
-						
-					</p:dataTable>
-
-					<p:commandButton value="Salvar Pesca" action="#{pescaMB.salvarPesca}" />
-
-
-				</h:panelGrid>
+								<p:commandButton value="Adicionar"	action="#{pescaMB.adicionaPescaria}" update=":form:tabelaPescarias" />
+								
+								</p:fieldset>
+		
+							
+							<p:dataTable value="#{pescaMB.pescariasAdicionadas}" var="pescaria"	styleClass="order-table" headerClass="order-table-header"
+								rowClasses="order-table-odd-row,order-table-even-row" id="tabelaPescarias" >
+								
+								<f:facet name="header">
+		    					    Lista de Pescarias
+		    					</f:facet>
+								
+								<p:columnGroup type="header">
+		            				<p:row>
+		                				<p:column colspan="1" rowspan="2" headerText="Peixe" />
+		                				<p:column colspan="1" rowspan="2" headerText="Quantidade" />
+		                				<p:column colspan="2" headerText="Coordenadas" />
+		            				</p:row>
+		            				
+		            				<p:row>
+		            					<p:column colspan="1" headerText="Latitude" />
+		                				<p:column colspan="1" headerText="Longitude" />
+		            				</p:row>
+		            			
+		        				</p:columnGroup>
+								
+								
+								<p:column headerText="Peixe" >
+									<h:outputText value="#{pescaria.peixe.nome}" />
+								</p:column>
+								<p:column headerText="Quantidade">
+									<h:outputText value="#{pescaria.quantidade}" />
+								</p:column>
+								<p:column headerText="Latitude">	
+									<h:outputText value="#{pescaria.latitude}" />
+								</p:column>
+								<p:column headerText="Longitude">
+									<h:outputText value="#{pescaria.longitude}" />
+								</p:column>
+								
+							</p:dataTable>
+		
+							<p:commandButton value="Salvar Pesca" action="#{pescaMB.salvarPesca}" />
+		
+		
+						</h:panelGrid>
+					</div>		
+				</div>
 			</h:form>
 		</h:body>
 	</ui:define>

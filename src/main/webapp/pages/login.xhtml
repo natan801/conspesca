@@ -8,25 +8,39 @@
 	<ui:define name="title">Cadastro de Pesca</ui:define>
 
 	<ui:define name="head">
-		<script
-			src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+		<h:outputStylesheet library="css" name="login.css" />
+
+		<style>
+		</style>
+
 	</ui:define>
 
 
 	<ui:define name="conteudo">
 
 		<h:body>
-			<h:form>
-			<p:growl id="messageLogin" showDetail="true" />  
-			<h:outputLabel value="Login" />
-			<p:inputText value="#{loginMB.login}" />
-			
-			<h:outputLabel value="Senha:" />
-			<p:password value="#{loginMB.senha}" />
-			
-			<p:commandButton action="#{loginMB.logar}" value="LOGAR" update="messageLogin"/>
-			
-		</h:form>
+			<h:form styleClass="login-form">
+				
+				<p:growl id="msgLogin" showDetail="true" for="messageGrowl" />
+				
+				<div class="login-page">
+					<div class="form">
+						
+						<p:inputText id="usuario" name="Usuário" value="#{loginMB.login}" placeholder="Usuário" 
+									required="true"   />
+						<p:message id="msgUsuario" for="usuario" />
+						
+						<p:password id="senha" name="Senha" value="#{loginMB.senha}" placeholder="Senha" 
+									required="true"  requiredMessage="Campo Obrigatório"/>
+						<p:message id="msgSenha" for="senha" />
+						
+						
+						<p:commandButton value="Login" action="#{loginMB.logar}"  update="@form" />
+					</div>
+				</div>
+
+
+			</h:form>
 		</h:body>
 	</ui:define>
 
