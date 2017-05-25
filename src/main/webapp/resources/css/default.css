@@ -1,10 +1,12 @@
 @CHARSET "ISO-8859-1";
 
+
 body {  
-     margin: 0px;  
-     padding: 0;  
-     color: #616161;  
- }  
+    margin: 0px;  
+    padding: 0;  
+    color: #616161;  
+ }
+
  h1, h2, h3 {  
      margin-top: 0;  
  }  
@@ -52,8 +54,8 @@ body {
    position: absolute;  
    top:25px;  
    right:15px;  
-     padding: 0;  
-     height: 59px;  
+    padding: 0;  
+    height: 59px;  
    overflow: hidden;  
  }  
  #menu ul {  
@@ -75,6 +77,8 @@ body {
  #menu li a:hover {  
      text-decoration: underline;  
  }  
+ 
+ 
  #globalthemeswitcher {  
    position:absolute;  
    top:5px;  
@@ -87,8 +91,8 @@ body {
  }  
  /* Content */  
  #content {  
-     width: 70%;  
-   float:left;  
+    width: 70%;  
+ 	float:left;  
  }  
  .post {  
      padding-bottom: 15px;  

@@ -71,11 +71,9 @@
 	outline: 0;
 	background: #aed0ea;
 	border: 0;
-	padding: 15px;
+	padding: 5px;
 	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
+	font-size: 10px;
 	cursor: pointer;
 }
 
@@ -140,7 +138,7 @@
 }
 
 body {
-	background: #f2f5f7; /* fallback for old browsers */
+	background: #f2f5f7;
 	background: -webkit-linear-gradient(right, #f2f5f7, #aed0ea);
 	background: -moz-linear-gradient(right, #f2f5f7, #aed0ea);
 	background: -o-linear-gradient(right, #f2f5f7, #aed0ea);

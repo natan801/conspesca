@@ -4,18 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.event.map.MarkerDragEvent;
 import org.primefaces.event.map.PointSelectEvent;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
-import org.primefaces.model.map.Marker;
 
 import br.com.conspesca.model.Ferramenta;
 import br.com.conspesca.model.Peixe;
@@ -46,7 +42,6 @@ public class PescaMB extends BaseMB {
 	private List<Pescaria> pescariasAdicionadas;
 
 	private MapModel draggableModel;
-	private Marker marker;
 
 	@EJB
 	private PescaService pescaService;
@@ -66,17 +61,55 @@ public class PescaMB extends BaseMB {
 		super.init();
 		this.draggableModel = new DefaultMapModel();
 		this.pesca = new Pesca();
-		if (super.userSession != null) {
-			String idUsuario = super.userSession.getId();
-			Usuario usuarioLogado = this.usuarioService.findUsuarioByID(Integer.parseInt(idUsuario));
-			this.pesca.setUsuario(usuarioLogado);
-		}
 		this.pescaria = new Pescaria();
 		this.pescariasAdicionadas = new ArrayList<>();
 
 		this.listaFerramentas = this.ferramentaService.findAllFerramenta();
 		this.peixes = this.peixeService.findAllPeixe();
 		this.pescas = this.pescaService.findAllPesca();
+	}
+
+	public String salvarPesca() {
+
+		String idUsuario = super.userSession.getId();
+		Usuario usuarioLogado = this.usuarioService.findUsuarioByID(Integer.parseInt(idUsuario));
+
+		this.pesca.setUsuario(usuarioLogado);
+		this.pesca.setPescarias(this.pescariasAdicionadas);
+		this.pescaService.salvar(this.pesca);
+
+		return "consultapesca";
+
+	}
+
+	public void selecionaCoordenada(PointSelectEvent event) {
+
+		if (this.pescaria == null) {
+			this.pescaria = new Pescaria();
+		}
+
+		LatLng latLng = event.getLatLng();
+
+		this.pescaria.setLatitude(latLng.getLat());
+		this.pescaria.setLongitude(latLng.getLng());
+	}
+
+	public void adicionaPescaria() {
+
+		this.pescaria.setPesca(this.pesca);
+		this.pescariasAdicionadas.add(this.pescaria);
+		
+		
+		
+		this.pescaria = new Pescaria();
+	}
+
+	public void remove(Pescaria pescaria) {
+		try {
+			this.pescariasAdicionadas.remove(pescaria);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public MapModel getDraggableModel() {
@@ -142,44 +175,6 @@ public class PescaMB extends BaseMB {
 
 	public void setPescariasAdicionadas(List<Pescaria> pescariasAdicionadas) {
 		this.pescariasAdicionadas = pescariasAdicionadas;
-	}
-
-	public String salvarPesca() {
-
-		this.pesca.setFerramenta(this.ferramenta);
-		this.pesca.setPescarias(this.pescariasAdicionadas);
-		this.pescaService.salvar(this.pesca);
-
-		return "consultapesca";
-
-	}
-
-	public void selecionaCoordenada(PointSelectEvent event) {
-
-		if (this.pescaria == null) {
-			this.pescaria = new Pescaria();
-		}
-
-		LatLng latLng = event.getLatLng();
-
-		this.pescaria.setLatitude(latLng.getLat());
-		this.pescaria.setLongitude(latLng.getLng());
-	}
-
-	public void adicionaPescaria() {
-
-		this.pescaria.setPesca(this.pesca);
-		this.pescariasAdicionadas.add(this.pescaria);
-
-		this.pescaria = new Pescaria();
-	}
-
-	public void onMarkerDrag(MarkerDragEvent event) {
-		this.marker = event.getMarker();
-
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Marker Dragged",
-						"Lat:" + this.marker.getLatlng().getLat() + ", Lng:" + this.marker.getLatlng().getLng()));
 	}
 
 }
