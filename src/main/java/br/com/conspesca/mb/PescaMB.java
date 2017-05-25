@@ -99,8 +99,6 @@ public class PescaMB extends BaseMB {
 		this.pescaria.setPesca(this.pesca);
 		this.pescariasAdicionadas.add(this.pescaria);
 		
-		
-		
 		this.pescaria = new Pescaria();
 	}
 
