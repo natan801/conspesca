@@ -10,23 +10,20 @@
 
 	<ui:define name="conteudo">
 		<h:body>
-			<h:form id="formulario">
+			<h:form id="formulario" styleClass="form-conteudo">
 				<p:messages id="messages" autoUpdate="true" />
 
-				<h:panelGrid id="cadastrar" columns="2" width="100%"
-					style="width: 50% !important;">
+				<h:panelGrid id="cadastrar" columns="2">
+				
 					<p:outputLabel value="Nome: " />
-					<p:inputText id="nome" name="nome" size="60"
-						value="#{usuarioMB.usuario.nome}" required="true"
+					<p:inputText id="nome" name="nome" size="60" value="#{usuarioMB.usuario.nome}" required="true"
 						requiredMessage="Campo nome obrigatório!" />
 
 					<p:outputLabel value="E-mail: " />
-					<p:inputText id="email" value="#{usuarioMB.usuario.email}">
-					</p:inputText>
-
+					<p:inputText id="email" value="#{usuarioMB.usuario.email}" />
+					
 					<p:outputLabel value=" Login: " />
 					<p:inputText id="login" value="#{usuarioMB.usuario.login}" />
-
 
 					<p:outputLabel value=" Senha: " />
 					<p:password id="senha" value="#{usuarioMB.usuario.senha}" />
@@ -35,11 +32,8 @@
 					<p:calendar id="dataNascimento" value="#{usuarioMB.usuario.dataNascimento}"	
 							pattern="dd-MM-yyyy" mask="true" locale="pt_BR" showButtonPanel="true"/>
 					
-					
-					<p:commandButton action="#{usuarioMB.salvar}" value="Salvar"
-						ajax="false" />
+					<p:commandButton action="#{usuarioMB.salvar}" value="Salvar" ajax="false" />
 				</h:panelGrid>
-				<br />
 			</h:form>
 		</h:body>
 	</ui:define>

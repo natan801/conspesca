@@ -8,7 +8,6 @@
 	<ui:define name="title">Cadastro de Pesca</ui:define>
 	
 	<ui:define name="head">
-		<h:outputStylesheet library="css" name="login.css" />
 	</ui:define>
 	
 	
@@ -22,7 +21,12 @@
 						<h:panelGrid columns="2" id="panelFerramenta">
 
 							<h:outputLabel value="Ferramenta: " />
-							<p:selectOneMenu effect="fade" value="#{pescaMB.pesca.ferramenta}" id="selectFerramenta" converter="ferramentaConverter"	required="true">
+							<p:selectOneMenu effect="fade" value="#{pescaMB.pesca.ferramenta}" 
+											id="selectFerramenta" converter="ferramentaConverter"	
+											required="true"
+											styleClass="select-menu"
+											panelStyleClass="select-menu">
+								
 								<f:selectItems value="#{pescaMB.listaFerramentas}" var="f" itemLabel="#{f.nome}" itemValue="#{f}" />
 							</p:selectOneMenu>
 						</h:panelGrid>

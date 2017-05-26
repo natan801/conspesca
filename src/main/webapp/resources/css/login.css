@@ -10,20 +10,8 @@
 
 .conteudo-page {
 	width: 80% !important;
-	padding: 8% 0 0;
-	margin: auto !important;
-}
-
-.form {
-	position: relative;
-	z-index: 1;
-	background: #FFFFFF;
-	max-width: 80%;
-	margin: 0 auto;
-	padding: 10px;
-	text-align: left;
-	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0
-		rgba(0, 0, 0, 0.24);
+	padding: 0 0 0;
+	margin: auto;
 }
 
 .form-conteudo {
@@ -31,8 +19,73 @@
 	z-index: 1;
 	background: #FFFFFF;
 	max-width: 80%;
-	margin: 0 auto;
-	padding: 45px;
+	margin: 20px auto;
+	padding: 40px;
+	text-align: left;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 
+				0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.form-conteudo .select-menu .ui-selectonemenu-label { 
+    background: #FFF;
+    border:0;
+    width:200px;
+    border-radius: 0;
+    padding: 5px;
+    margin: 0 auto;
+    
+}
+
+.panel .select-menu  .ui-selectonemenu-list { 
+    background: #FFF;
+	border:0;
+	border-radius: 0;
+	    
+}
+
+.form-conteudo .select-menu .ui-selectonemenu-trigger{
+	border:0;
+	border-radius: 0;
+}
+
+.form-conteudo .select-menu .ui-selectonemenu-item .ui-selectonemenu-list-item .ui-corner-all{
+	border:0;
+	border-radius:0;
+}
+
+.form-conteudo input {
+	font-family: "Roboto", sans-serif;
+	outline: 0;
+	background: #f2f2f2;
+	border: 0;
+	border-radius: 0;
+	margin: 0 0 0px;
+	padding: 5px;
+	box-sizing: border-box;
+	font-size: 12px;
+}
+
+.form-conteudo button {
+	font-family: "Roboto", sans-serif;
+	text-transform: none;
+	outline: 0;
+	background: #aed0ea;
+	border: 0;
+	padding: 0px;
+	color: #FFFFFF;
+	font-size: 10px;
+	cursor: pointer;
+}
+
+
+
+.form-login {
+	position: relative;
+	z-index: 1;
+	background: #FFFFFF;
+	max-width: 360px;
+	margin: 100px auto;
+	padding: 10px;
 	text-align: left;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0
 		rgba(0, 0, 0, 0.24);
@@ -65,22 +118,14 @@
 	cursor: pointer;
 }
 
-.form-conteudo button {
-	font-family: "Roboto", sans-serif;
-	text-transform: uppercase;
-	outline: 0;
-	background: #aed0ea;
-	border: 0;
-	padding: 5px;
-	color: #FFFFFF;
-	font-size: 10px;
-	cursor: pointer;
-}
-
-
 .form button:hover, .form button:active, .form button:focus {
 	background: #f2f5f7;
 }
+
+.form-conteudo button:hover, .form button:active, .form button:focus {
+	background: #f2f5f7;
+}
+
 
 .form .message {
 	margin: 15px 0 0;

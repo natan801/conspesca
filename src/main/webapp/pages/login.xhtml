@@ -8,30 +8,23 @@
 	<ui:define name="title">Cadastro de Pesca</ui:define>
 
 	<ui:define name="head">
-		<h:outputStylesheet library="css" name="login.css" />
-
-		<style>
-		</style>
-
 	</ui:define>
 
 
 	<ui:define name="conteudo">
 
 		<h:body>
-			<h:form styleClass="login-form">
+			<h:form styleClass="form-login">
 				
 				<p:growl id="msgLogin" showDetail="true" for="messageGrowl" />
 				
 				<div class="login-page">
 					<div class="form">
 						
-						<p:inputText id="usuario" name="Usuário" value="#{loginMB.login}" placeholder="Usuário" 
-									required="true"   />
+						<p:inputText id="usuario" name="Usuário" value="#{loginMB.login}" placeholder="Usuário" required="true" requiredMessage="Campo Obrigatório" />
 						<p:message id="msgUsuario" for="usuario" />
 						
-						<p:password id="senha" name="Senha" value="#{loginMB.senha}" placeholder="Senha" 
-									required="true"  requiredMessage="Campo Obrigatório"/>
+						<p:password id="senha" name="Senha" value="#{loginMB.senha}" placeholder="Senha" required="true"  requiredMessage="Campo Obrigatório" />
 						<p:message id="msgSenha" for="senha" />
 						
 						
