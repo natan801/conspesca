@@ -46,7 +46,11 @@ public class SecurityFilter implements Filter{
 			String paginaAtual = httpServletRequest.getServletPath();
 			
 			
-			if(userAuthentication==null && !paginaAtual.equalsIgnoreCase("/pages/login.xhtml") && !paginaAtual.equalsIgnoreCase("/pages/pesquisaprincipal.xhtml")){
+			if(userAuthentication==null 
+				&& !paginaAtual.equalsIgnoreCase("/pages/login.xhtml") 
+				&& !paginaAtual.equalsIgnoreCase("/pages/pesquisaprincipal.xhtml")
+				&& !paginaAtual.equalsIgnoreCase("/pages/map.xhtml")){
+				
 				String contextPath = httpServletRequest.getContextPath(); 
 				httpServletResponse.sendRedirect(contextPath+"/pages/login.xhtml");
 				return;

@@ -1,7 +1,7 @@
 package br.com.conspesca.model;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -23,8 +23,8 @@ public class Pesca implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_pesca")
 	private Integer idPesca;
-	private Calendar data;
-	private Calendar duracao;
+	private Date data;
+	private Date duracao;
 	private String observacao;
 
 	@ManyToOne
@@ -41,7 +41,7 @@ public class Pesca implements Serializable {
 	public Pesca() {
 	}
 
-	public Pesca(Integer idPesca, Calendar data, Calendar duracao, String observacao) {
+	public Pesca(Integer idPesca, Date data, Date duracao, String observacao) {
 		super();
 		this.idPesca = idPesca;
 		this.data = data;
@@ -57,19 +57,19 @@ public class Pesca implements Serializable {
 		this.idPesca = idPesca;
 	}
 
-	public Calendar getData() {
+	public Date getData() {
 		return this.data;
 	}
 
-	public void setData(Calendar data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 
-	public Calendar getDuracao() {
+	public Date getDuracao() {
 		return this.duracao;
 	}
 
-	public void setDuracao(Calendar duracao) {
+	public void setDuracao(Date duracao) {
 		this.duracao = duracao;
 	}
 
@@ -109,7 +109,7 @@ public class Pesca implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((idPesca == null) ? 0 : idPesca.hashCode());
+		result = prime * result + ((this.idPesca == null) ? 0 : this.idPesca.hashCode());
 		return result;
 	}
 
@@ -119,13 +119,13 @@ public class Pesca implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (this.getClass() != obj.getClass())
 			return false;
 		Pesca other = (Pesca) obj;
-		if (idPesca == null) {
+		if (this.idPesca == null) {
 			if (other.idPesca != null)
 				return false;
-		} else if (!idPesca.equals(other.idPesca))
+		} else if (!this.idPesca.equals(other.idPesca))
 			return false;
 		return true;
 	}

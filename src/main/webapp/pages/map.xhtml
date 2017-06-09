@@ -5,7 +5,7 @@
 	template="/resources/template/template_principal.xhtml">
 
 
-	<ui:define name="title">Cadastro de Pesca</ui:define>
+	<ui:define name="title"></ui:define>
 
 	<ui:define name="head">
 		<script
@@ -40,17 +40,20 @@
 			      }
 			</script>
 			<h:form>
-				<div align="center">
+			
+				<div class="div-map-pesquisa">
+					<div class="div-map-pesquisa-input">
+						<p:autoComplete completeMethod="#{pesquisaPrincipalMB.findPeixes}" var="peixe" forceSelection="true" emptyMessage="Campo Obrigatório"
+							value="#{pesquisaPrincipalMB.pesquisaPescaria}" itemLabel="#{peixe.nome}" itemValue="#{peixe.idPeixe}" accesskey=""
+							id="idPesquisa" minQueryLength="3" placeholder="Pesquize por um tipo de peixe...">
+							
+							<p:ajax event="itemSelect" listener="#{pesquisaPrincipalMB.atualizarClusterCoordenada}" oncomplete="initMap(xhr,status,args)"/>
+						
+						</p:autoComplete>
+					</div>
 				
-				<p:autoComplete completeMethod="#{pesquisaPrincipalMB.findPeixes}" var="peixe" forceSelection="true" emptyMessage="Campo Obrigatório"
-					value="#{pesquisaPrincipalMB.pesquisaPescaria}" itemLabel="#{peixe.nome}" itemValue="#{peixe.idPeixe}" accesskey=""
-					id="idPesquisa" minQueryLength="3">
+					<div  id="map" class="mapa-render"></div>
 					
-					<p:ajax event="itemSelect" listener="#{pesquisaPrincipalMB.atualizarClusterCoordenada}" oncomplete="initMap(xhr,status,args)"/>
-				
-				</p:autoComplete>
-				
-				<div  id="map" style="width:800px;height:700px"></div>
 				</div>
 			</h:form>
 		</h:body>

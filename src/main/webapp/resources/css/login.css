@@ -2,6 +2,16 @@
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+.logo{
+    width: 100%;
+    min-height: 100px;
+    background-size: cover;
+	height: 100px;
+	line-height:100px;
+	vertical-align: 50px;
+}
+
+
 .login-page {
 	width: 360px;
 	padding: 8% 0 0;
@@ -64,6 +74,43 @@
 	box-sizing: border-box;
 	font-size: 12px;
 }
+
+.div-map-pesquisa{
+	width: 600px;
+	height: 800px;
+	margin: 50px auto;
+	
+}
+
+.div-map-pesquisa-input .ui-autocomplete{
+	border: none; 
+	margin: 0px; 
+	height: auto;
+	width: 100%; 
+	position: 0 auto;
+	z-index: 6;
+	outline: none;
+	text-align: center;	
+}
+
+
+.div-map-pesquisa input {
+	font-family: "Roboto", sans-serif;
+	font-size: 18px !important;
+	background: #f2f2f2;
+	border-radius: 0;
+	padding: 10px;
+}
+
+
+
+
+.div-map-pesquisa .mapa-render{
+	width:600px;
+	height:550px;
+}
+
+
 
 .form-conteudo button {
 	font-family: "Roboto", sans-serif;
